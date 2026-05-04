@@ -1,9 +1,11 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 // ======================
 // SUPABASE SETUP
 // ======================
 
 const SUPABASE_URL = "https://eztflaqhcamoftvosegx.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV6dGZsYXFoY2Ftb2Z0dm9zZWd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzUzNDAsImV4cCI6MjA5MzQxMTM0MH0.beBy1rIxqy0Y70IkB8-tZCs9RlZcMFn4bPaYL_Rqw14";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV6dGZsYXFoY2Ftb2Z0dm9zZWd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzUzNDAsImV4cCI6MjA5MzQxMTM0MH0.beBy1rIxqy0Y70IkB8-tZCs9RlZcMFn4bPaYL_Rqw14"; // keep yours
 
 const supabase = window.supabase.createClient(
   SUPABASE_URL,
@@ -33,9 +35,6 @@ const popupBtn = document.getElementById("popupBtn");
 
 const timeButtons = document.querySelectorAll(".time-select button");
 
-const canvas = document.getElementById("confetti");
-const ctx = canvas ? canvas.getContext("2d") : null;
-
 // ======================
 // STATE
 // ======================
@@ -61,7 +60,10 @@ async function init() {
   }
 
   currentUser = session.user;
+
   await loadUser();
+
+  updateDisplay(); // 🔥 important
 }
 
 // ======================
@@ -95,16 +97,18 @@ function formatTime(s) {
 }
 
 function updateDisplay() {
-  timerDisplay.textContent = formatTime(time);
+  if (timerDisplay) {
+    timerDisplay.textContent = formatTime(time);
+  }
 }
 
 function updateStatsUI() {
   if (!userData) return;
 
-  streakEl.textContent = `🔥 Streak: ${userData.streak}`;
-  sessionsEl.textContent = `Sessions: ${userData.sessions}`;
-  xpEl.textContent = `XP: ${userData.xp}`;
-  levelEl.textContent = `Level: ${Math.floor(userData.xp / 100)}`;
+  if (streakEl) streakEl.textContent = `🔥 Streak: ${userData.streak}`;
+  if (sessionsEl) sessionsEl.textContent = `Sessions: ${userData.sessions}`;
+  if (xpEl) xpEl.textContent = `XP: ${userData.xp}`;
+  if (levelEl) levelEl.textContent = `Level: ${Math.floor(userData.xp / 100)}`;
 }
 
 // ======================
@@ -184,20 +188,25 @@ function showEndState() {
   interval = null;
 
   isRunning = false;
+
   mainBtn.style.display = "none";
   endState.style.display = "block";
 }
 
-mainBtn.onclick = () => {
-  if (!isRunning) startTimer();
-  else showEndState();
-};
+if (mainBtn) {
+  mainBtn.onclick = () => {
+    if (!isRunning) startTimer();
+    else showEndState();
+  };
+}
 
 // ======================
 // YES (COMPLETE SESSION)
 // ======================
 
+if (yesBtn) {
 yesBtn.onclick = async () => {
+
   clearInterval(interval);
 
   let today = new Date().toDateString();
@@ -205,7 +214,6 @@ yesBtn.onclick = async () => {
 
   let { sessions, streak, xp, last_date } = userData;
 
-  // 🔥 LEVEL CHECK (before update)
   let prevLevel = Math.floor(xp / 100);
 
   if (last_date !== today) {
@@ -220,7 +228,6 @@ yesBtn.onclick = async () => {
     last_date = today;
   }
 
-  // 🔥 LEVEL AFTER
   let newLevel = Math.floor(xp / 100);
 
   await supabase
@@ -233,12 +240,10 @@ yesBtn.onclick = async () => {
     })
     .eq("id", currentUser.id);
 
-  // update local state
   Object.assign(userData, { sessions, streak, xp, last_date });
 
   updateStatsUI();
 
-  // 🔥 FEEDBACK
   if (newLevel > prevLevel) {
     showPopup("🔥 LEVEL UP!");
   } else {
@@ -249,12 +254,15 @@ yesBtn.onclick = async () => {
 
   resetSession();
 };
+}
 
 // ======================
 // NO (FAIL)
 // ======================
 
+if (noBtn) {
 noBtn.onclick = async () => {
+
   await supabase
     .from("profiles")
     .update({ streak: 0 })
@@ -267,6 +275,7 @@ noBtn.onclick = async () => {
 
   resetSession();
 };
+}
 
 // ======================
 // RESET
@@ -288,8 +297,9 @@ function resetSession() {
 }
 
 // ======================
-// INIT
+// START
 // ======================
 
-updateDisplay();
 init();
+
+});
