@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus Session</title>
+
+  <link rel="stylesheet" href="CSS/focus.css">
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <img src="Images/FocusForge Logos-06.png" class="logo">
+    <a href="app.html" class="exit-btn">Exit</a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="focus-container">
+
+    <input type="text" class="task-input" placeholder="What are you committing to?">
+
+    <div class="time-select">
+      <button data-time="900">15m</button>
+      <button data-time="1500" class="active">25m</button>
+      <button data-time="2700">45m</button>
+    </div>
+
+    <div class="timer" id="timer">25:00</div>
+
+    <button class="main-btn" id="mainBtn">Start Session</button>
+
+    <div class="end-state" id="endState">
+      <p>Did you complete your task?</p>
+      <div class="end-buttons">
+        <button class="yes">Yes</button>
+        <button class="no">No</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottom-bar">
+    <span id="streak">🔥 Streak: 0</span>
+    <span id="sessions">Sessions: 0</span>
+    <span id="xp">XP: 0</span>
+    <span id="level">Level: 0</span>
+  </div>
+
+  <!-- POPUP -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <p id="popupText"></p>
+      <button id="popupBtn">Continue</button>
+    </div>
+  </div>
+
+  <!-- CONFETTI -->
+  <canvas id="confetti"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="JS/timer.js"></script>
+</body>
+</html>

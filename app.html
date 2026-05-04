@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+  <link rel="stylesheet" href="CSS/app.css">
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <img src="Images/FocusForge Logos-06.png" class="nav-logo">
+    <button class="logout-btn">Logout</button>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <img src="Images/FocusForge Logos-06.png" class="hero-logo">
+
+    <h1>Stay consistent.</h1>
+    <p>Build discipline every day.</p>
+
+    <div class="xp-box">
+      <h2 id="xp">0 XP</h2>
+      <p id="level">Level 0</p>
+
+      <div class="level-bar">
+        <div class="level-fill" id="levelFill"></div>
+      </div>
+      <p id="levelProgress">0 / 100 XP</p>
+    </div>
+  </div>
+
+  <!-- DAILY GOAL -->
+  <div class="goal-box">
+    <h3>Daily Goal</h3>
+    <p id="goalText">0 / 2 sessions</p>
+
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card">
+      <h2 id="streak">0</h2>
+      <p>🔥 Streak</p>
+    </div>
+
+    <div class="stat-card">
+      <h2 id="sessions">0</h2>
+      <p>📊 Sessions</p>
+    </div>
+  </div>
+
+  <!-- ACTION -->
+  <div class="action">
+    <a href="focus.html" class="start-btn">Start Focus Session</a>
+  </div>
+
+  <!-- ACTIVITY -->
+  <div class="activity">
+    <p id="lastSession">Last session: -</p>
+  </div>
+
+  <!-- 🔥 IMPORTANT: Supabase FIRST -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- 🔥 JS LAST -->
+  <script src="JS/app.js"></script>
+
+</body>
+</html>
