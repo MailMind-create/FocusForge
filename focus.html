@@ -19,23 +19,28 @@
   <!-- MAIN -->
   <div class="focus-container">
 
+    <!-- TASK -->
     <input type="text" class="task-input" placeholder="What are you committing to?">
 
+    <!-- TIME SELECT -->
     <div class="time-select">
-      <button data-time="900">15m</button>
-      <button data-time="1500" class="active">25m</button>
-      <button data-time="2700">45m</button>
+      <button type="button" data-time="900">15m</button>
+      <button type="button" data-time="1500" class="active">25m</button>
+      <button type="button" data-time="2700">45m</button>
     </div>
 
+    <!-- TIMER -->
     <div class="timer" id="timer">25:00</div>
 
-    <button class="main-btn" id="mainBtn">Start Session</button>
+    <!-- START / END BUTTON -->
+    <button type="button" class="main-btn" id="mainBtn">Start Session</button>
 
+    <!-- END STATE -->
     <div class="end-state" id="endState">
       <p>Did you complete your task?</p>
       <div class="end-buttons">
-        <button class="yes">Yes</button>
-        <button class="no">No</button>
+        <button type="button" class="yes">Yes</button>
+        <button type="button" class="no">No</button>
       </div>
     </div>
 
@@ -53,14 +58,16 @@
   <div id="popup" class="popup">
     <div class="popup-content">
       <p id="popupText"></p>
-      <button id="popupBtn">Continue</button>
+      <button type="button" id="popupBtn">Continue</button>
     </div>
   </div>
 
   <!-- CONFETTI -->
   <canvas id="confetti"></canvas>
 
+  <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="JS/timer.js"></script>
+
 </body>
 </html>

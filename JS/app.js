@@ -1,7 +1,3 @@
-// ======================
-// WAIT FOR DOM (🔥 FIX)
-// ======================
-
 document.addEventListener("DOMContentLoaded", () => {
 
   // ======================
@@ -65,12 +61,18 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // UI
+    // ======================
+    // BASIC UI
+    // ======================
+
     streakEl.textContent = data.streak;
     sessionsEl.textContent = data.sessions;
     xpEl.textContent = data.xp + " XP";
 
+    // ======================
     // LEVEL
+    // ======================
+
     let level = Math.floor(data.xp / 100);
     let currentXP = data.xp % 100;
 
@@ -78,7 +80,10 @@ document.addEventListener("DOMContentLoaded", () => {
     levelFill.style.width = currentXP + "%";
     levelProgress.textContent = `${currentXP} / 100 XP`;
 
+    // ======================
     // LAST SESSION
+    // ======================
+
     let today = new Date().toDateString();
 
     if (data.last_date) {
@@ -94,31 +99,35 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // DAILY GOAL (still local)
-    let goalData = JSON.parse(localStorage.getItem("dailyGoal")) || {
-      date: today,
-      count: 0
-    };
+    // ======================
+    // 🔥 DAILY GOAL (SUPABASE)
+    // ======================
 
-    if (goalData.date !== today) {
-      goalData = { date: today, count: 0 };
-      localStorage.setItem("dailyGoal", JSON.stringify(goalData));
+    let dailySessions = data.daily_sessions || 0;
+
+    // reset if new day
+    if (data.last_date !== today) {
+      dailySessions = 0;
+
+      await supabase
+        .from("profiles")
+        .update({ daily_sessions: 0 })
+        .eq("id", user.id);
     }
 
     let goal = 2;
-    let percent = Math.min((goalData.count / goal) * 100, 100);
+    let percent = Math.min((dailySessions / goal) * 100, 100);
 
-    goalText.textContent = `${goalData.count} / ${goal} sessions`;
+    goalText.textContent = `${dailySessions} / ${goal} sessions`;
     progress.style.width = percent + "%";
   }
 
   // ======================
-  // 🔥 LOGOUT FIX (WORKING)
+  // LOGOUT
   // ======================
 
   if (logoutBtn) {
     logoutBtn.addEventListener("click", async () => {
-      console.log("Logout clicked"); // debug
 
       const { error } = await supabase.auth.signOut();
 
@@ -126,8 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Logout error:", error.message);
         return;
       }
-
-      localStorage.clear();
 
       window.location.replace("/");
     });
