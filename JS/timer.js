@@ -89,7 +89,7 @@ async function loadUser() {
       streak: 0,
       xp: 0,
       last_date: null,
-      daily_sessions: 0 // 🔥 optional safety
+      daily_sessions: 0
     });
 
     if (insertError) {
@@ -260,13 +260,13 @@ yesBtn.addEventListener("click", async () => {
   let today = new Date().toDateString();
   let earnedXP = getXP();
 
-  let { sessions, streak, xp, last_date, daily_sessions = 0 } = userData; // 🔥 added
+  let { sessions, streak, xp, last_date, daily_sessions = 0 } = userData;
 
   let prevLevel = Math.floor(xp / 100);
 
   sessions++;
   xp += earnedXP;
-  daily_sessions++; // 🔥 added
+  daily_sessions++;
 
   if (last_date !== today) {
     let y = new Date();
@@ -274,17 +274,33 @@ yesBtn.addEventListener("click", async () => {
 
     streak = (last_date === y.toDateString()) ? streak + 1 : 1;
     last_date = today;
-    daily_sessions = 1; // 🔥 reset if new day
+    daily_sessions = 1;
   }
 
   const { error } = await supabase
     .from("profiles")
-    .update({ sessions, streak, xp, last_date, daily_sessions }) // 🔥 added
+    .update({ sessions, streak, xp, last_date, daily_sessions })
     .eq("id", currentUser.id);
 
   if (error) {
     console.error(error);
     return;
+  }
+
+  // ======================
+  // SAVE SESSION HISTORY
+  // ======================
+
+  const { error: sessionError } = await supabase
+    .from("focus_sessions")
+    .insert({
+      user_id: currentUser.id,
+      duration: selectedTime / 60,
+      xp_earned: earnedXP
+    });
+
+  if (sessionError) {
+    console.error("Session history error:", sessionError);
   }
 
   await loadUser();
