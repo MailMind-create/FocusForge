@@ -112,6 +112,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const friendProfiles = [];
 
+    // ======================
+    // LOAD FRIENDS
+    // ======================
+
     for (const friend of friendsData) {
 
       const { data: profile } =
@@ -132,6 +136,32 @@ document.addEventListener("DOMContentLoaded", () => {
         friendProfiles.push(profile);
       }
     }
+
+    // ======================
+    // ADD YOURSELF
+    // ======================
+
+    const { data: currentProfile } =
+      await supabase
+        .from("profiles")
+        .select(`
+          id,
+          username,
+          xp,
+          streak,
+          avatar_url
+        `)
+        .eq("id", currentUser.id)
+        .single();
+
+    if (currentProfile) {
+
+      friendProfiles.push(currentProfile);
+    }
+
+    // ======================
+    // SORT
+    // ======================
 
     friendProfiles.sort(
       (a, b) => (b.xp || 0) - (a.xp || 0)
