@@ -80,6 +80,29 @@ body {
 }
 
 /* =======================
+   INFO BOX
+======================= */
+
+.info-box {
+
+  margin-bottom: 24px;
+
+  padding: 16px 18px;
+
+  border-radius: 16px;
+
+  background: rgba(74,108,255,0.08);
+
+  border: 1px solid rgba(74,108,255,0.18);
+
+  color: rgba(255,255,255,0.88);
+
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+/* =======================
    CARD
 ======================= */
 
