@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Goals</title>
+
+  <link rel="stylesheet" href="CSS/daily-goals.css">
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+
+    <a href="app.html" class="back-btn">
+      ← Dashboard
+    </a>
+
+    <img src="Images/FocusForge Logos-06.png" class="nav-logo">
+
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+
+    <h1>Daily Goals</h1>
+
+    <p>
+      Set study goals and track your daily progress.
+    </p>
+
+  </div>
+
+  <!-- CREATE GOAL -->
+  <div class="create-goal-card">
+
+    <h2>Create Goal</h2>
+
+    <input
+      type="text"
+      id="subjectInput"
+      placeholder="Subject or Goal Name"
+    >
+
+    <div class="time-inputs">
+
+      <div class="time-box">
+        <label>Hours</label>
+
+        <input
+          type="number"
+          id="hoursInput"
+          min="0"
+          max="24"
+          value="1"
+        >
+      </div>
+
+      <div class="time-box">
+        <label>Minutes</label>
+
+        <input
+          type="number"
+          id="minutesInput"
+          min="0"
+          max="59"
+          value="0"
+        >
+      </div>
+
+    </div>
+
+    <button id="createGoalBtn">
+      Create Goal
+    </button>
+
+  </div>
+
+  <!-- GOALS -->
+  <div class="goals-container" id="goalsContainer">
+
+    <!-- goals inserted here -->
+
+  </div>
+
+  <!-- EMPTY -->
+  <div class="empty-state" id="emptyState">
+
+    <h3>No goals yet</h3>
+
+    <p>
+      Create your first daily goal to start tracking progress.
+    </p>
+
+  </div>
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- JS -->
+  <script src="JS/daily-goals.js"></script>
+
+</body>
+</html>

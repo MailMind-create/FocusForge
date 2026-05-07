@@ -20,7 +20,20 @@
   <div class="focus-container">
 
     <!-- TASK -->
-    <input type="text" class="task-input" placeholder="What are you committing to?">
+    <input
+      type="text"
+      class="task-input"
+      placeholder="What are you committing to?"
+    >
+
+    <!-- OPTIONAL DAILY GOAL -->
+    <select id="goalSelect" class="goal-select">
+
+      <option value="">
+        Optional Daily Goal
+      </option>
+
+    </select>
 
     <!-- TIME SELECT -->
     <div class="time-select">
@@ -33,33 +46,72 @@
     <div class="timer" id="timer">25:00</div>
 
     <!-- START / END BUTTON -->
-    <button type="button" class="main-btn" id="mainBtn">Start Session</button>
+    <button
+      type="button"
+      class="main-btn"
+      id="mainBtn"
+    >
+      Start Session
+    </button>
 
     <!-- END STATE -->
     <div class="end-state" id="endState">
+
       <p>Did you complete your task?</p>
+
       <div class="end-buttons">
-        <button type="button" class="yes">Yes</button>
-        <button type="button" class="no">No</button>
+
+        <button type="button" class="yes">
+          Yes
+        </button>
+
+        <button type="button" class="no">
+          No
+        </button>
+
       </div>
+
     </div>
 
   </div>
 
   <!-- BOTTOM -->
   <div class="bottom-bar">
-    <span id="streak">🔥 Streak: 0</span>
-    <span id="sessions">Sessions: 0</span>
-    <span id="xp">XP: 0</span>
-    <span id="level">Level: 0</span>
+
+    <span id="streak">
+      🔥 Streak: 0
+    </span>
+
+    <span id="sessions">
+      Sessions: 0
+    </span>
+
+    <span id="xp">
+      XP: 0
+    </span>
+
+    <span id="level">
+      Level: 0
+    </span>
+
   </div>
 
   <!-- POPUP -->
   <div id="popup" class="popup">
+
     <div class="popup-content">
+
       <p id="popupText"></p>
-      <button type="button" id="popupBtn">Continue</button>
+
+      <button
+        type="button"
+        id="popupBtn"
+      >
+        Continue
+      </button>
+
     </div>
+
   </div>
 
   <!-- CONFETTI -->
@@ -67,6 +119,7 @@
 
   <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script src="JS/timer.js"></script>
 
 </body>

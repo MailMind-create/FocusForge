@@ -1,0 +1,277 @@
+:root {
+  --bg: #0D0E12;
+  --card: #11131a;
+  --primary: #4A6CFF;
+  --secondary: #6C3DFF;
+  --text: #FFFFFF;
+  --muted: #A0A3BD;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  padding-bottom: 80px;
+}
+
+/* ======================
+   TOP BAR
+====================== */
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 40px;
+}
+
+.nav-logo {
+  height: 28px;
+}
+
+.back-btn {
+  color: var(--muted);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 18px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  color: white;
+  border-color: rgba(74,108,255,0.4);
+}
+
+/* ======================
+   HERO
+====================== */
+
+.hero {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.hero h1 {
+  font-size: 52px;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  color: var(--muted);
+}
+
+/* ======================
+   CREATE GOAL CARD
+====================== */
+
+.create-goal-card {
+  width: 500px;
+  max-width: 92%;
+  margin: 50px auto;
+  background: var(--card);
+  border-radius: 20px;
+  padding: 30px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.create-goal-card h2 {
+  margin-bottom: 24px;
+}
+
+.create-goal-card input {
+  width: 100%;
+  background: #151821;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: white;
+  padding: 14px;
+  border-radius: 12px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.create-goal-card input:focus {
+  border-color: rgba(74,108,255,0.4);
+}
+
+/* ======================
+   TIME INPUTS
+====================== */
+
+.time-inputs {
+  display: flex;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.time-box {
+  flex: 1;
+}
+
+.time-box label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ======================
+   CREATE BUTTON
+====================== */
+
+#createGoalBtn {
+  width: 100%;
+  margin-top: 24px;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary)
+  );
+}
+
+#createGoalBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(74,108,255,0.2);
+}
+
+/* ======================
+   GOALS CONTAINER
+====================== */
+
+.goals-container {
+  width: 900px;
+  max-width: 92%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ======================
+   GOAL CARD
+====================== */
+
+.goal-card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.goal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.goal-top h2 {
+  font-size: 28px;
+}
+
+.delete-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--muted);
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.delete-btn:hover {
+  color: white;
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* ======================
+   GOAL INFO
+====================== */
+
+.goal-progress-text {
+  margin-bottom: 14px;
+  color: var(--muted);
+}
+
+/* ======================
+   PROGRESS BAR
+====================== */
+
+.progress-bar {
+  width: 100%;
+  height: 14px;
+  background: #1a1d25;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary)
+  );
+  transition: width 0.4s ease;
+}
+
+/* ======================
+   EMPTY STATE
+====================== */
+
+.empty-state {
+  text-align: center;
+  margin-top: 80px;
+}
+
+.empty-state h3 {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  color: var(--muted);
+}
+
+/* ======================
+   MOBILE
+====================== */
+
+@media (max-width: 768px) {
+
+  .top-bar {
+    padding: 20px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .time-inputs {
+    flex-direction: column;
+  }
+
+  .goal-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+}
