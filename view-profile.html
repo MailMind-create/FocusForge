@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>View Profile</title>
+
+  <link rel="stylesheet"
+        href="CSS/view-profile.css">
+
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+
+  <div class="top-bar">
+
+    <img src="Images/FocusForge Logos-06.png"
+         class="nav-logo">
+
+    <a href="leaderboard.html"
+       class="back-btn">
+
+      Back
+
+    </a>
+
+  </div>
+
+  <!-- PROFILE -->
+
+  <div class="profile-container">
+
+    <!-- AVATAR -->
+
+    <div class="avatar">
+
+      <img
+        id="avatarImage"
+        class="avatar-image"
+      >
+
+      <span id="avatarLetter">
+        U
+      </span>
+
+    </div>
+
+    <!-- USERNAME -->
+
+    <h1 id="profileUsername">
+      User
+    </h1>
+
+    <!-- JOIN DATE -->
+
+    <p class="joined-text"
+       id="joinedDate">
+
+      Joined recently
+
+    </p>
+
+    <!-- BIO -->
+
+    <div class="bio-box">
+
+      <p id="profileBio">
+
+        No bio yet.
+
+      </p>
+
+    </div>
+
+    <!-- STATS -->
+
+    <div class="profile-stats">
+
+      <div class="profile-card">
+
+        <h2 id="profileXP">
+          0
+        </h2>
+
+        <p>XP</p>
+
+      </div>
+
+      <div class="profile-card">
+
+        <h2 id="profileLevel">
+          0
+        </h2>
+
+        <p>Level</p>
+
+      </div>
+
+      <div class="profile-card">
+
+        <h2 id="profileStreak">
+          0
+        </h2>
+
+        <p>🔥 Streak</p>
+
+      </div>
+
+      <div class="profile-card">
+
+        <h2 id="profileSessions">
+          0
+        </h2>
+
+        <p>Sessions</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- JS -->
+
+  <script src="JS/view-profile.js"></script>
+
+</body>
+</html>

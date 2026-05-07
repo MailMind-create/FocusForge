@@ -13,21 +13,72 @@
   <!-- TOP BAR -->
   <div class="top-bar">
 
-    <img src="Images/FocusForge Logos-06.png" class="nav-logo">
+    <img src="Images/FocusForge Logos-06.png"
+         class="nav-logo">
 
-    <div class="top-actions">
+    <!-- MENU -->
 
-      <a href="analytics.html" class="analytics-btn">
-        Analytics
-      </a>
+    <div class="menu-wrapper">
 
-      <a href="daily-goals.html" class="analytics-btn">
-        Daily Goals
-      </a>
+      <button class="menu-btn"
+              id="menuBtn">
 
-      <button class="logout-btn">
-        Logout
+        ☰
+
       </button>
+
+      <!-- DROPDOWN -->
+
+      <div class="dropdown-menu"
+           id="dropdownMenu">
+
+        <a href="profile.html"
+           class="menu-link">
+
+          Profile
+
+        </a>
+
+        <a href="friends.html"
+           class="menu-link">
+
+          Friends
+
+        </a>
+
+        <a href="leaderboard.html"
+           class="menu-link">
+
+          Leaderboard
+
+        </a>
+
+        <a href="analytics.html"
+           class="menu-link">
+
+          Analytics
+
+        </a>
+
+        <a href="daily-goals.html"
+           class="menu-link">
+
+          Daily Goals
+
+        </a>
+
+        <a href="settings.html"
+           class="menu-link">
+
+          Settings
+
+        </a>
+
+        <button class="logout-btn">
+          Logout
+        </button>
+
+      </div>
 
     </div>
 
@@ -35,64 +86,110 @@
 
   <!-- HERO -->
   <div class="hero">
-    <img src="Images/FocusForge Logos-06.png" class="hero-logo">
+
+    <img src="Images/FocusForge Logos-06.png"
+         class="hero-logo">
+
+    <!-- USERNAME -->
+
+    <p class="welcome-text">
+      Welcome back,
+    </p>
+
+    <h2 id="usernameDisplay">
+      User
+    </h2>
 
     <h1>Stay consistent.</h1>
+
     <p>Build discipline every day.</p>
 
     <div class="xp-box">
+
       <h2 id="xp">0 XP</h2>
+
       <p id="level">Level 0</p>
 
       <div class="level-bar">
-        <div class="level-fill" id="levelFill"></div>
+        <div class="level-fill"
+             id="levelFill"></div>
       </div>
 
-      <p id="levelProgress">0 / 100 XP</p>
+      <p id="levelProgress">
+        0 / 100 XP
+      </p>
+
     </div>
+
   </div>
 
   <!-- DAILY GOAL -->
   <div class="goal-box">
+
     <h3>Daily Goal</h3>
-    <p id="goalText">0 / 2 sessions</p>
+
+    <p id="goalText">
+      0 / 2 sessions
+    </p>
 
     <div class="progress-bar">
-      <div class="progress" id="progress"></div>
+
+      <div class="progress"
+           id="progress"></div>
+
     </div>
+
   </div>
 
   <!-- STATS -->
   <div class="stats">
 
     <div class="stat-card">
+
       <h2 id="streak">0</h2>
+
       <p>🔥 Streak</p>
+
     </div>
 
     <div class="stat-card">
+
       <h2 id="sessions">0</h2>
+
       <p>📊 Sessions</p>
+
     </div>
 
   </div>
 
   <!-- ACTION -->
   <div class="action">
-    <a href="focus.html" class="start-btn">
+
+    <a href="focus.html"
+       class="start-btn">
+
       Start Focus Session
+
     </a>
+
   </div>
 
   <!-- ACTIVITY -->
+
   <div class="activity">
-    <p id="lastSession">Last session: -</p>
+
+    <p id="lastSession">
+      Last session: -
+    </p>
+
   </div>
 
   <!-- SUPABASE -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- JS -->
+
   <script src="JS/app.js"></script>
 
 </body>

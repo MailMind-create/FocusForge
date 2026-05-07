@@ -1,0 +1,184 @@
+:root {
+  --bg: #0D0E12;
+  --card: #11131a;
+  --primary: #4A6CFF;
+  --secondary: #6C3DFF;
+  --text: #FFFFFF;
+  --muted: #A0A3BD;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* =======================
+   TOP BAR
+======================= */
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.nav-logo {
+  height: 28px;
+}
+
+.back-btn {
+  text-decoration: none;
+  color: var(--muted);
+  border: 1px solid #1a1d25;
+  padding: 10px 18px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  color: white;
+  border-color: var(--primary);
+}
+
+/* =======================
+   SETTINGS
+======================= */
+
+.settings-container {
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.settings-container h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary)
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-bottom: 40px;
+}
+
+/* =======================
+   CARD
+======================= */
+
+.settings-card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 18px;
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.settings-card label {
+  text-align: left;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* INPUT */
+
+.settings-card input {
+  width: 100%;
+  padding: 14px;
+
+  border-radius: 12px;
+  border: 1px solid #1a1d25;
+
+  background: #0f1117;
+  color: white;
+
+  outline: none;
+
+  transition: 0.3s;
+}
+
+.settings-card input:focus {
+  border-color: var(--primary);
+
+  box-shadow:
+    0 0 20px rgba(74,108,255,0.2);
+}
+
+/* BUTTON */
+
+.settings-card button {
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary)
+  );
+
+  border: none;
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  color: white;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.settings-card button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(74,108,255,0.25);
+}
+
+/* STATUS */
+
+#statusText {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* =======================
+   MOBILE
+======================= */
+
+@media (max-width: 768px) {
+
+  .top-bar {
+    padding: 20px;
+  }
+
+  .settings-container {
+    margin-top: 50px;
+    width: 90%;
+  }
+
+  .settings-container h1 {
+    font-size: 32px;
+  }
+
+}

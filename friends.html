@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Friends</title>
+
+  <link rel="stylesheet"
+        href="CSS/friends.css">
+
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+
+  <div class="top-bar">
+
+    <img src="Images/FocusForge Logos-06.png"
+         class="nav-logo">
+
+    <a href="app.html"
+       class="back-btn">
+
+      Dashboard
+
+    </a>
+
+  </div>
+
+  <!-- PAGE -->
+
+  <div class="friends-container">
+
+    <h1>
+      Friends
+    </h1>
+
+    <p class="subtitle">
+      Search users and connect with friends.
+    </p>
+
+    <!-- SEARCH -->
+
+    <div class="section">
+
+      <h2 class="section-title">
+        Search Users
+      </h2>
+
+      <div class="search-box">
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search username..."
+        >
+
+        <button id="searchBtn">
+          Search
+        </button>
+
+      </div>
+
+      <!-- SEARCH RESULTS -->
+
+      <div id="results">
+
+      </div>
+
+    </div>
+
+    <!-- FRIENDS LIST -->
+
+    <div class="section">
+
+      <h2 class="section-title">
+        Your Friends
+      </h2>
+
+      <div id="friendsList">
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- JS -->
+
+  <script src="JS/friends.js"></script>
+
+</body>
+</html>

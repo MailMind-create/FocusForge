@@ -32,50 +32,154 @@ body {
   height: 28px;
 }
 
-/* TOP ACTIONS */
+/* =======================
+   MENU
+======================= */
 
-.top-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.menu-wrapper {
+  position: relative;
 }
 
-/* ANALYTICS BUTTON */
+/* MENU BUTTON */
 
-.analytics-btn {
-  text-decoration: none;
+.menu-btn {
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  background: rgba(255,255,255,0.03);
+
   color: white;
-  padding: 10px 18px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  transition: 0.3s;
-  font-weight: 600;
-  backdrop-filter: blur(10px);
+
+  cursor: pointer;
+
+  font-size: 22px;
+
+  transition: 0.25s ease;
+
+  backdrop-filter: blur(14px);
 }
 
-.analytics-btn:hover {
+.menu-btn:hover {
+
   transform: translateY(-2px);
-  border-color: rgba(74,108,255,0.5);
-  background: rgba(74,108,255,0.12);
-  box-shadow: 0 10px 30px rgba(74,108,255,0.15);
+
+  border-color: rgba(74,108,255,0.35);
+
+  background: rgba(74,108,255,0.10);
+
+  box-shadow:
+    0 10px 25px rgba(74,108,255,0.12);
+}
+
+/* DROPDOWN */
+
+.dropdown-menu {
+
+  position: absolute;
+
+  top: 60px;
+  right: 0;
+
+  width: 240px;
+
+  padding: 12px;
+
+  border-radius: 20px;
+
+  background: rgba(17,19,26,0.92);
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  backdrop-filter: blur(18px);
+
+  display: none;
+
+  flex-direction: column;
+
+  gap: 10px;
+
+  z-index: 999;
+}
+
+/* SHOW MENU */
+
+.dropdown-menu.show {
+  display: flex;
+}
+
+/* LINKS */
+
+.menu-link {
+
+  text-decoration: none;
+
+  color: rgba(255,255,255,0.88);
+
+  padding: 12px 14px;
+
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.03);
+
+  border: 1px solid rgba(255,255,255,0.04);
+
+  transition: 0.25s ease;
+
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.menu-link:hover {
+
+  transform: translateY(-2px);
+
+  color: white;
+
+  border-color: rgba(74,108,255,0.35);
+
+  background: rgba(74,108,255,0.10);
+
+  box-shadow:
+    0 10px 25px rgba(74,108,255,0.10);
 }
 
 /* LOGOUT */
 
 .logout-btn {
-  border: 1px solid #1a1d25;
-  background: transparent;
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  background: rgba(255,255,255,0.02);
+
   color: var(--muted);
-  padding: 10px 16px;
-  border-radius: 10px;
+
+  padding: 12px 14px;
+
+  border-radius: 14px;
+
   cursor: pointer;
-  transition: 0.3s;
+
+  transition: 0.25s ease;
+
+  backdrop-filter: blur(14px);
+
+  font-size: 15px;
+
+  text-align: left;
 }
 
 .logout-btn:hover {
-  border-color: rgba(255,255,255,0.15);
+
+  border-color: rgba(255,255,255,0.12);
+
   color: white;
+
+  background: rgba(255,255,255,0.05);
 }
 
 /* HERO */
@@ -88,6 +192,31 @@ body {
 .hero-logo {
   width: 90px;
   margin-bottom: 20px;
+}
+
+/* WELCOME */
+
+.welcome-text {
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+#usernameDisplay {
+
+  font-size: 20px;
+  font-weight: 600;
+
+  margin-bottom: 18px;
+
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary)
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .hero h1 {
@@ -227,17 +356,14 @@ body {
 
   .top-bar {
     padding: 20px;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .top-actions {
-    width: 100%;
-    justify-content: center;
   }
 
   .hero h1 {
     font-size: 32px;
+  }
+
+  #usernameDisplay {
+    font-size: 18px;
   }
 
   .xp-box {
@@ -260,6 +386,11 @@ body {
 
   .level-bar {
     width: 100%;
+  }
+
+  .dropdown-menu {
+
+    width: 220px;
   }
 
 }

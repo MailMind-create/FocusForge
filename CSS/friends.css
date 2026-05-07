@@ -1,0 +1,373 @@
+:root {
+  --bg: #0D0E12;
+  --card: #11131a;
+  --primary: #4A6CFF;
+  --secondary: #6C3DFF;
+  --text: #FFFFFF;
+  --muted: #A0A3BD;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* =======================
+   TOP BAR
+======================= */
+
+.top-bar {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px 40px;
+}
+
+.nav-logo {
+  height: 28px;
+}
+
+/* BACK BUTTON */
+
+.back-btn {
+
+  text-decoration: none;
+
+  color: rgba(255,255,255,0.88);
+
+  padding: 10px 16px;
+
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.03);
+
+  border: 1px solid rgba(255,255,255,0.05);
+
+  transition: all 0.25s ease;
+
+  font-weight: 500;
+  font-size: 15px;
+
+  backdrop-filter: blur(14px);
+}
+
+.back-btn:hover {
+
+  transform: translateY(-2px);
+
+  color: white;
+
+  border-color: rgba(74,108,255,0.35);
+
+  background: rgba(74,108,255,0.10);
+
+  box-shadow:
+    0 10px 25px rgba(74,108,255,0.12);
+}
+
+/* =======================
+   PAGE
+======================= */
+
+.friends-container {
+
+  width: 100%;
+  max-width: 850px;
+
+  margin: 60px auto;
+
+  padding: 0 20px;
+}
+
+.friends-container h1 {
+
+  font-size: 42px;
+
+  margin-bottom: 10px;
+
+  text-align: center;
+
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary)
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+
+  text-align: center;
+
+  color: var(--muted);
+
+  margin-bottom: 50px;
+}
+
+/* SECTIONS */
+
+.section {
+
+  margin-bottom: 50px;
+}
+
+.section-title {
+
+  font-size: 22px;
+
+  margin-bottom: 20px;
+
+  color: white;
+}
+
+/* SEARCH */
+
+.search-box {
+
+  display: flex;
+
+  gap: 12px;
+
+  margin-bottom: 25px;
+}
+
+.search-box input {
+
+  flex: 1;
+
+  padding: 14px 16px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255,255,255,0.05);
+
+  background: rgba(255,255,255,0.03);
+
+  color: white;
+
+  outline: none;
+
+  transition: 0.25s ease;
+
+  font-size: 15px;
+}
+
+.search-box input:focus {
+
+  border-color: rgba(74,108,255,0.35);
+
+  background: rgba(74,108,255,0.04);
+
+  box-shadow:
+    0 0 0 4px rgba(74,108,255,0.08);
+}
+
+.search-box input::placeholder {
+
+  color: rgba(255,255,255,0.35);
+}
+
+.search-box button {
+
+  border: none;
+
+  padding: 14px 20px;
+
+  border-radius: 14px;
+
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--secondary)
+  );
+
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.search-box button:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(74,108,255,0.20);
+}
+
+/* LISTS */
+
+#results,
+#friendsList {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+/* USER CARD */
+
+.user-card {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 18px;
+
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.03);
+
+  border: 1px solid rgba(255,255,255,0.05);
+
+  backdrop-filter: blur(14px);
+
+  transition: 0.25s ease;
+}
+
+.user-card:hover {
+
+  transform: translateY(-2px);
+
+  border-color: rgba(74,108,255,0.18);
+}
+
+/* USER INFO */
+
+.user-info {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+/* AVATAR */
+
+.user-avatar {
+
+  width: 56px;
+  height: 56px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary)
+  );
+
+  border: 2px solid rgba(255,255,255,0.08);
+}
+
+/* TEXT */
+
+.user-text h3 {
+
+  font-size: 18px;
+
+  margin-bottom: 5px;
+}
+
+.user-text p {
+
+  color: var(--muted);
+
+  font-size: 14px;
+}
+
+/* BUTTONS */
+
+.add-btn {
+
+  border: none;
+
+  padding: 12px 18px;
+
+  border-radius: 12px;
+
+  background: rgba(74,108,255,0.12);
+
+  border: 1px solid rgba(74,108,255,0.18);
+
+  color: white;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+
+  font-weight: 600;
+}
+
+.add-btn:hover {
+
+  transform: translateY(-2px);
+
+  background: rgba(74,108,255,0.18);
+}
+
+/* EMPTY */
+
+.empty-text {
+
+  color: var(--muted);
+
+  padding: 10px 0;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .top-bar {
+
+    padding: 20px;
+
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+  .friends-container h1 {
+
+    font-size: 34px;
+  }
+
+  .search-box {
+
+    flex-direction: column;
+  }
+
+  .user-card {
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    align-items: flex-start;
+  }
+
+}

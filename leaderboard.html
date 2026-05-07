@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Leaderboard</title>
+
+  <link rel="stylesheet"
+        href="CSS/leaderboard.css">
+
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+
+  <div class="top-bar">
+
+    <img src="Images/FocusForge Logos-06.png"
+         class="nav-logo">
+
+    <a href="app.html"
+       class="back-btn">
+
+      Dashboard
+
+    </a>
+
+  </div>
+
+  <!-- PAGE -->
+
+  <div class="leaderboard-container">
+
+    <h1>
+      Leaderboard
+    </h1>
+
+    <p class="subtitle">
+      Compete with the most focused users.
+    </p>
+
+    <!-- TABS -->
+
+    <div class="tabs">
+
+      <button
+        class="tab-btn active"
+        id="globalTab">
+
+        Global
+
+      </button>
+
+      <button
+        class="tab-btn"
+        id="friendsTab">
+
+        Friends
+
+      </button>
+
+    </div>
+
+    <!-- TOP 3 -->
+
+    <div class="top-three"
+         id="topThree">
+
+    </div>
+
+    <!-- LEADERBOARD -->
+
+    <div class="leaderboard-list"
+         id="leaderboardList">
+
+    </div>
+
+  </div>
+
+  <!-- SUPABASE -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- JS -->
+
+  <script src="JS/leaderboard.js"></script>
+
+</body>
+</html>
