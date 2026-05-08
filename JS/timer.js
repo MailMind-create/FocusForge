@@ -50,6 +50,8 @@ let time = selectedTime;
 let interval = null;
 let isRunning = false;
 
+let isClaimingReward = false;
+
 let userData = null;
 let currentUser = null;
 
@@ -434,15 +436,43 @@ function playSound() {
 
 yesBtn.addEventListener("click", async () => {
 
+  // STOP SPAM CLICKING
+
+  if (isClaimingReward) return;
+
+  isClaimingReward = true;
+
   await loadUser();
 
-  if (!userData) return;
+  if (!userData) {
+
+    isClaimingReward = false;
+
+    return;
+  }
 
   let today =
     new Date().toDateString();
 
   let earnedXP =
     getXP();
+
+  // ======================
+  // TOO SHORT
+  // ======================
+
+  if (earnedXP <= 0) {
+
+    showPopup(
+      "Session too short for rewards"
+    );
+
+    isClaimingReward = false;
+
+    resetSession();
+
+    return;
+  }
 
   let {
     sessions,
@@ -489,13 +519,20 @@ yesBtn.addEventListener("click", async () => {
     .eq("id", currentUser.id);
 
   if (error) {
+
     console.error(error);
+
+    isClaimingReward = false;
+
     return;
   }
 
   // ======================
   // SAVE SESSION HISTORY
   // ======================
+
+  const completedMinutes =
+    (selectedTime - time) / 60;
 
   const { error: sessionError } =
     await supabase
@@ -504,13 +541,14 @@ yesBtn.addEventListener("click", async () => {
 
         user_id: currentUser.id,
 
-        duration: selectedTime / 60,
+        duration: completedMinutes,
 
         xp_earned: earnedXP
 
       });
 
   if (sessionError) {
+
     console.error(
       "Session history error:",
       sessionError
@@ -532,7 +570,7 @@ yesBtn.addEventListener("click", async () => {
 
       let updatedMinutes =
         selectedGoal.studied_minutes +
-        (selectedTime / 60);
+        completedMinutes;
 
       await supabase
         .from("study_subjects")
@@ -597,6 +635,8 @@ yesBtn.addEventListener("click", async () => {
       : `🔥 +${earnedXP} XP`
 
   );
+
+  isClaimingReward = false;
 
   resetSession();
 });
@@ -663,19 +703,104 @@ function resetSession() {
 
 function getXP() {
 
+  // ======================
+  // TIME COMPLETED
+  // ======================
+
+  const completedSeconds =
+    selectedTime - time;
+
+  const completedMinutes =
+    completedSeconds / 60;
+
+  // ======================
+  // 15 MIN TIMER
+  // ======================
+
   if (selectedTime === 900) {
+
+    // UNDER 5 MIN
+
+    if (completedMinutes < 5) {
+      return 0;
+    }
+
+    // 5 - 9:59
+
+    if (completedMinutes < 10) {
+      return 10;
+    }
+
+    // 10 - 14:59
+
+    if (completedMinutes < 15) {
+      return 20;
+    }
+
+    // FULL
+
     return 30;
   }
 
+  // ======================
+  // 25 MIN TIMER
+  // ======================
+
   if (selectedTime === 1500) {
+
+    // UNDER 10 MIN
+
+    if (completedMinutes < 10) {
+      return 0;
+    }
+
+    // 10 - 19:59
+
+    if (completedMinutes < 20) {
+      return 25;
+    }
+
+    // 20 - 24:59
+
+    if (completedMinutes < 25) {
+      return 40;
+    }
+
+    // FULL
+
     return 50;
   }
 
+  // ======================
+  // 45 MIN TIMER
+  // ======================
+
   if (selectedTime === 2700) {
+
+    // UNDER 15 MIN
+
+    if (completedMinutes < 15) {
+      return 0;
+    }
+
+    // 15 - 29:59
+
+    if (completedMinutes < 30) {
+      return 35;
+    }
+
+    // 30 - 44:59
+
+    if (completedMinutes < 45) {
+      return 65;
+    }
+
+    // FULL
+
     return 90;
   }
 
-  return 50;
+  return 0;
 }
 
 // ======================
