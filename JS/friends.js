@@ -53,11 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    currentUser = session.user;
-
-    await loadFriends();
+    currentUser =
+      session.user;
 
     await loadRequests();
+
+    await loadFriends();
   }
 
   // ======================
@@ -69,7 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const query =
       searchInput.value.trim();
 
-    if (!query) return;
+    if (!query)
+      return;
 
     const {
       data,
@@ -121,15 +123,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (const user of users) {
 
+      // ======================
+      // CHECK EXISTING REQUEST
+      // ======================
+
       const {
-        data: existing
+        data: request
+      } =
+        await supabase
+          .from("friend_requests")
+          .select("*")
+          .or(`
+            and(sender_id.eq.${currentUser.id},receiver_id.eq.${user.id}),
+            and(sender_id.eq.${user.id},receiver_id.eq.${currentUser.id})
+          `)
+          .maybeSingle();
+
+      // ======================
+      // CHECK FRIENDS
+      // ======================
+
+      const {
+        data: friendship
       } =
         await supabase
           .from("friends")
           .select("*")
           .or(`
-            and(sender_id.eq.${currentUser.id},receiver_id.eq.${user.id}),
-            and(sender_id.eq.${user.id},receiver_id.eq.${currentUser.id})
+            and(user_id.eq.${currentUser.id},friend_id.eq.${user.id}),
+            and(user_id.eq.${user.id},friend_id.eq.${currentUser.id})
           `)
           .maybeSingle();
 
@@ -139,31 +161,22 @@ document.addEventListener("DOMContentLoaded", () => {
       let disabled =
         false;
 
-      if (existing) {
+      if (request) {
 
-        if (
-          existing.status ===
-          "pending"
-        ) {
+        buttonText =
+          "Pending";
 
-          buttonText =
-            "Pending";
+        disabled =
+          true;
+      }
 
-          disabled =
-            true;
-        }
+      if (friendship) {
 
-        if (
-          existing.status ===
-          "accepted"
-        ) {
+        buttonText =
+          "Friends";
 
-          buttonText =
-            "Friends";
-
-          disabled =
-            true;
-        }
+        disabled =
+          true;
       }
 
       const card =
@@ -211,7 +224,8 @@ document.addEventListener("DOMContentLoaded", () => {
             disabled
               ? "disabled"
               : ""
-          }>
+          }
+        >
 
           ${buttonText}
 
@@ -262,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const { error } =
       await supabase
-        .from("friends")
+        .from("friend_requests")
         .insert({
 
           sender_id:
@@ -272,21 +286,13 @@ document.addEventListener("DOMContentLoaded", () => {
             friendId,
 
           status:
-            "pending",
-
-          user_id:
-            currentUser.id,
-
-          friend_id:
-            friendId
+            "pending"
 
         });
 
     if (error) {
 
       console.error(error);
-
-      return;
     }
   }
 
@@ -301,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
       error
     } =
       await supabase
-        .from("friends")
+        .from("friend_requests")
         .select("*")
         .eq(
           "receiver_id",
@@ -326,19 +332,19 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const requestTitle =
+    const title =
       document.createElement(
         "h2"
       );
 
-    requestTitle.className =
+    title.className =
       "section-title";
 
-    requestTitle.textContent =
+    title.textContent =
       "Friend Requests";
 
     friendsList.appendChild(
-      requestTitle
+      title
     );
 
     for (const request of data) {
@@ -394,16 +400,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         </div>
 
-        <div
-          style="
-            display:flex;
-            gap:10px;
-          "
-        >
+        <div style="display:flex;gap:10px;">
 
           <button
             class="accept-btn"
             data-id="${request.id}"
+            data-user="${request.sender_id}"
           >
             Accept
           </button>
@@ -436,7 +438,8 @@ document.addEventListener("DOMContentLoaded", () => {
           async () => {
 
             await acceptRequest(
-              btn.dataset.id
+              btn.dataset.id,
+              btn.dataset.user
             );
 
             location.reload();
@@ -467,62 +470,88 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ======================
-  // ACCEPT
+  // ACCEPT REQUEST
   // ======================
 
-  async function acceptRequest(id) {
+  async function acceptRequest(
+    requestId,
+    senderId
+  ) {
 
-    const { error } =
-      await supabase
-        .from("friends")
-        .update({
+    // ======================
+    // ADD FRIEND BOTH SIDES
+    // ======================
 
-          status:
-            "accepted"
+    await supabase
+      .from("friends")
+      .insert([
 
-        })
-        .eq("id", id);
+        {
+          user_id:
+            currentUser.id,
 
-    if (error) {
+          friend_id:
+            senderId
+        },
 
-      console.error(error);
-    }
+        {
+          user_id:
+            senderId,
+
+          friend_id:
+            currentUser.id
+        }
+
+      ]);
+
+    // ======================
+    // UPDATE REQUEST
+    // ======================
+
+    await supabase
+      .from("friend_requests")
+      .update({
+        status:
+          "accepted"
+      })
+      .eq(
+        "id",
+        requestId
+      );
   }
 
   // ======================
-  // DECLINE
+  // DECLINE REQUEST
   // ======================
 
-  async function declineRequest(id) {
+  async function declineRequest(
+    requestId
+  ) {
 
-    const { error } =
-      await supabase
-        .from("friends")
-        .delete()
-        .eq("id", id);
-
-    if (error) {
-
-      console.error(error);
-    }
+    await supabase
+      .from("friend_requests")
+      .delete()
+      .eq(
+        "id",
+        requestId
+      );
   }
 
   // ======================
   // REMOVE FRIEND
   // ======================
 
-  async function removeFriend(id) {
+  async function removeFriend(
+    friendId
+  ) {
 
-    const { error } =
-      await supabase
-        .from("friends")
-        .delete()
-        .eq("id", id);
-
-    if (error) {
-
-      console.error(error);
-    }
+    await supabase
+      .from("friends")
+      .delete()
+      .or(`
+        and(user_id.eq.${currentUser.id},friend_id.eq.${friendId}),
+        and(user_id.eq.${friendId},friend_id.eq.${currentUser.id})
+      `);
   }
 
   // ======================
@@ -531,8 +560,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadFriends() {
 
-    friendsList.innerHTML = "";
-
     const {
       data,
       error
@@ -540,13 +567,9 @@ document.addEventListener("DOMContentLoaded", () => {
       await supabase
         .from("friends")
         .select("*")
-        .or(`
-          sender_id.eq.${currentUser?.id},
-          receiver_id.eq.${currentUser?.id}
-        `)
         .eq(
-          "status",
-          "accepted"
+          "user_id",
+          currentUser.id
         );
 
     if (error) {
@@ -561,21 +584,16 @@ document.addEventListener("DOMContentLoaded", () => {
       data.length === 0
     ) {
 
-      friendsList.innerHTML = `
+      friendsList.innerHTML += `
         <p class="empty-text">
           No friends yet.
         </p>
       `;
+
+      return;
     }
 
     for (const friend of data) {
-
-      const friendId =
-        friend.sender_id ===
-        currentUser.id
-
-          ? friend.receiver_id
-          : friend.sender_id;
 
       const {
         data: profile
@@ -585,7 +603,7 @@ document.addEventListener("DOMContentLoaded", () => {
           .select("*")
           .eq(
             "id",
-            friendId
+            friend.friend_id
           )
           .single();
 
@@ -632,7 +650,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <button
           class="remove-btn"
-          data-id="${friend.id}"
+          data-id="${profile.id}"
         >
           Remove
         </button>
@@ -642,22 +660,21 @@ document.addEventListener("DOMContentLoaded", () => {
         card
       );
 
-      const removeBtn =
-        card.querySelector(
+      card
+        .querySelector(
           ".remove-btn"
+        )
+        .addEventListener(
+          "click",
+          async () => {
+
+            await removeFriend(
+              profile.id
+            );
+
+            location.reload();
+          }
         );
-
-      removeBtn.addEventListener(
-        "click",
-        async () => {
-
-          await removeFriend(
-            friend.id
-          );
-
-          location.reload();
-        }
-      );
     }
   }
 
