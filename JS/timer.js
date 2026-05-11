@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://eztflaqhcamoftvosegx.supabase.co";
 
   const SUPABASE_ANON_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV6dGZsYXFoY2Ftb2Z0dm9zZWd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzUzNDAsImV4cCI6MjA5MzQxMTM0MH0.beBy1rIxqy0Y70IkB8-tZCs9RlZcMFn4bPaYL_Rqw14";
+    "YOUR_ANON_KEY";
 
   const supabase =
     window.supabase.createClient(
@@ -352,7 +352,53 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const today =
+      new Date().toDateString();
+
     userGoals = data || [];
+
+    // ======================
+    // DAILY RESET
+    // ======================
+
+    for (const goal of userGoals) {
+
+      if (
+        goal.last_reset !==
+        today
+      ) {
+
+        await supabase
+          .from("study_subjects")
+          .update({
+
+            studied_minutes: 0,
+
+            reward_claimed: false,
+
+            last_reset: today
+
+          })
+          .eq(
+            "id",
+            goal.id
+          );
+      }
+    }
+
+    const {
+      data: refreshedGoals
+    } =
+      await supabase
+        .from("study_subjects")
+        .select("*")
+        .eq(
+          "user_id",
+          currentUser.id
+        );
+
+    userGoals =
+      refreshedGoals || [];
 
     renderGoalOptions();
   }
@@ -617,36 +663,88 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getXP() {
 
+    const completedSeconds =
+      selectedTime - time;
+
     const completedMinutes =
-      (
-        selectedTime - time
-      ) / 60;
+      completedSeconds / 60;
 
-    if (
-      completedMinutes < 5
-    ) {
-      return 0;
-    }
+    // 15 MIN
 
-    if (
-      selectedTime === 900
-    ) {
+    if (selectedTime === 900) {
+
+      if (
+        completedMinutes < 5
+      ) {
+        return 0;
+      }
+
+      if (
+        completedMinutes < 10
+      ) {
+        return 10;
+      }
+
+      if (
+        completedMinutes < 15
+      ) {
+        return 20;
+      }
+
       return 30;
     }
 
-    if (
-      selectedTime === 1500
-    ) {
+    // 25 MIN
+
+    if (selectedTime === 1500) {
+
+      if (
+        completedMinutes < 10
+      ) {
+        return 0;
+      }
+
+      if (
+        completedMinutes < 20
+      ) {
+        return 25;
+      }
+
+      if (
+        completedMinutes < 25
+      ) {
+        return 40;
+      }
+
       return 50;
     }
 
-    if (
-      selectedTime === 2700
-    ) {
+    // 45 MIN
+
+    if (selectedTime === 2700) {
+
+      if (
+        completedMinutes < 15
+      ) {
+        return 0;
+      }
+
+      if (
+        completedMinutes < 30
+      ) {
+        return 35;
+      }
+
+      if (
+        completedMinutes < 45
+      ) {
+        return 65;
+      }
+
       return 90;
     }
 
-    return 30;
+    return 0;
   }
 
   // ======================
@@ -760,81 +858,82 @@ document.addEventListener("DOMContentLoaded", () => {
 
     xp += earnedXP;
 
-    dailySessions++;
-
-   if (
-  lastDate !== today
-) {
-
-  let yesterday =
-    new Date();
-
-  yesterday.setDate(
-    yesterday.getDate() - 1
-  );
-
-  const yesterdayString =
-    yesterday.toDateString();
-
-  // ======================
-  // CONTINUE STREAK
-  // ======================
-
-  if (
-    lastDate ===
-    yesterdayString
-  ) {
-
-    streak++;
-
-  } else {
-
-    // ======================
-    // STREAK FREEZE
-    // ======================
-
-    let streakFreezes =
-      userData.streak_freezes || 0;
-
-    const alreadyUsedToday =
-      userData.last_freeze_used ===
-      today;
-
     if (
-      streakFreezes > 0 &&
-      !alreadyUsedToday
+      lastDate === today
     ) {
 
-      streakFreezes--;
-
-      await supabase
-        .from("profiles")
-        .update({
-
-          streak_freezes:
-            streakFreezes,
-
-          last_freeze_used:
-            today
-
-        })
-        .eq(
-          "id",
-          currentUser.id
-        );
-
-      showPopup(
-        "❄️ Streak Freeze Used"
-      );
+      dailySessions++;
 
     } else {
 
-      streak = 1;
+      dailySessions = 1;
     }
-  }
 
-  lastDate = today;
-}
+    if (
+      lastDate !== today
+    ) {
+
+      let yesterday =
+        new Date();
+
+      yesterday.setDate(
+        yesterday.getDate() - 1
+      );
+
+      const yesterdayString =
+        yesterday.toDateString();
+
+      if (
+        lastDate ===
+        yesterdayString
+      ) {
+
+        streak++;
+
+      } else {
+
+        let streakFreezes =
+          userData.streak_freezes || 0;
+
+        const alreadyUsedToday =
+          userData.last_freeze_used ===
+          today;
+
+        if (
+          streakFreezes > 0 &&
+          !alreadyUsedToday
+        ) {
+
+          streakFreezes--;
+
+          await supabase
+            .from("profiles")
+            .update({
+
+              streak_freezes:
+                streakFreezes,
+
+              last_freeze_used:
+                today
+
+            })
+            .eq(
+              "id",
+              currentUser.id
+            );
+
+          showPopup(
+            "❄️ Streak Freeze Used"
+          );
+
+        } else {
+
+          streak = 1;
+        }
+      }
+
+      lastDate = today;
+    }
 
     await supabase
       .from("profiles")
@@ -928,6 +1027,114 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error(
         sessionError
       );
+    }
+
+    // ======================
+    // DAILY GOAL PROGRESS
+    // ======================
+
+    if (goalSelect.value) {
+
+      const selectedGoal =
+        userGoals.find(
+          g => g.id === goalSelect.value
+        );
+
+      if (selectedGoal) {
+
+        let updatedMinutes =
+          selectedGoal.studied_minutes +
+          completedMinutes;
+
+        await supabase
+          .from("study_subjects")
+          .update({
+            studied_minutes:
+              updatedMinutes
+          })
+          .eq(
+            "id",
+            selectedGoal.id
+          );
+
+        await loadGoals();
+
+        if (
+          updatedMinutes >=
+            selectedGoal.daily_goal_minutes &&
+          !selectedGoal.reward_claimed
+        ) {
+
+          const bonusXP =
+            selectedGoal.daily_goal_minutes;
+
+          await supabase
+            .from("profiles")
+            .update({
+              xp: xp + bonusXP
+            })
+            .eq(
+              "id",
+              currentUser.id
+            );
+
+          await supabase
+            .from("study_subjects")
+            .update({
+              reward_claimed: true
+            })
+            .eq(
+              "id",
+              selectedGoal.id
+            );
+
+          fireConfetti();
+
+          showXP(bonusXP);
+
+          showPopup(
+            `🎯 Goal Complete! +${bonusXP} XP`
+          );
+        }
+      }
+    }
+
+    // ======================
+    // EXAM GOAL PROGRESS
+    // ======================
+
+    if (
+      examGoalSelect.value &&
+      isMax
+    ) {
+
+      const selectedExam =
+        examGoals.find(
+          e =>
+            e.id ===
+            examGoalSelect.value
+        );
+
+      if (selectedExam) {
+
+        const updatedMinutes =
+  (
+    selectedExam.studied_minutes || 0
+  ) + completedMinutes;
+
+await supabase
+  .from("exam_goals")
+  .update({
+    studied_minutes:
+      updatedMinutes
+  })
+          .eq(
+            "id",
+            selectedExam.id
+          );
+
+        await loadExamGoals();
+      }
     }
 
     await loadUser();
