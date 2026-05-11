@@ -1037,7 +1037,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const selectedGoal =
         userGoals.find(
-          g => g.id === goalSelect.value
+         g => String(g.id) === String(goalSelect.value)
         );
 
       if (selectedGoal) {
@@ -1111,8 +1111,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const selectedExam =
         examGoals.find(
           e =>
-            e.id ===
-            examGoalSelect.value
+  String(e.id) ===
+  String(examGoalSelect.value)
         );
 
       if (selectedExam) {
