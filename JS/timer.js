@@ -1043,19 +1043,27 @@ document.addEventListener("DOMContentLoaded", () => {
       if (selectedGoal) {
 
         let updatedMinutes =
-          selectedGoal.studied_minutes +
-          completedMinutes;
+  (
+    selectedGoal.studied_minutes || 0
+  ) + completedMinutes;
 
-        await supabase
-          .from("study_subjects")
-          .update({
-            studied_minutes:
-              updatedMinutes
-          })
-          .eq(
-            "id",
-            selectedGoal.id
-          );
+const {
+  error: goalError
+} = await supabase
+  .from("study_subjects")
+  .update({
+    studied_minutes:
+      updatedMinutes
+  })
+  .eq(
+    "id",
+    selectedGoal.id
+  );
+
+console.log(
+  "Goal update error:",
+  goalError
+);
 
         await loadGoals();
 
@@ -1122,16 +1130,24 @@ document.addEventListener("DOMContentLoaded", () => {
     selectedExam.studied_minutes || 0
   ) + completedMinutes;
 
-await supabase
+
+const {
+  error: examError
+} = await supabase
   .from("exam_goals")
   .update({
     studied_minutes:
       updatedMinutes
   })
-          .eq(
-            "id",
-            selectedExam.id
-          );
+  .eq(
+    "id",
+    selectedExam.id
+  );
+
+console.log(
+  "Exam update error:",
+  examError
+);
 
         await loadExamGoals();
       }
