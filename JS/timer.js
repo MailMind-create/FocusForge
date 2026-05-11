@@ -1042,10 +1042,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (selectedGoal) {
 
-        let updatedMinutes =
+      let updatedMinutes =
+Math.round(
   (
     selectedGoal.studied_minutes || 0
-  ) + completedMinutes;
+  ) + completedMinutes
+);
 
 const {
   error: goalError
@@ -1126,9 +1128,11 @@ console.log(
       if (selectedExam) {
 
         const updatedMinutes =
+Math.round(
   (
     selectedExam.studied_minutes || 0
-  ) + completedMinutes;
+  ) + completedMinutes
+);
 
 
 const {
