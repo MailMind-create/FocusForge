@@ -40,7 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function init() {
 
-    const { data: { session } } =
+    const {
+      data: { session }
+    } =
       await supabase.auth.getSession();
 
     if (!session) {
@@ -54,6 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
     currentUser = session.user;
 
     await loadFriends();
+
+    await loadRequests();
   }
 
   // ======================
@@ -67,12 +71,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!query) return;
 
-    const { data, error } =
+    const {
+      data,
+      error
+    } =
       await supabase
         .from("profiles")
         .select("*")
-        .ilike("username", `%${query}%`)
-        .neq("id", currentUser.id)
+        .ilike(
+          "username",
+          `%${query}%`
+        )
+        .neq(
+          "id",
+          currentUser.id
+        )
         .limit(10);
 
     if (error) {
@@ -82,14 +95,16 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    renderSearchResults(data || []);
+    renderSearchResults(
+      data || []
+    );
   }
 
   // ======================
-  // RENDER SEARCH RESULTS
+  // RENDER SEARCH
   // ======================
 
-  function renderSearchResults(users) {
+  async function renderSearchResults(users) {
 
     results.innerHTML = "";
 
@@ -104,10 +119,57 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    users.forEach(user => {
+    for (const user of users) {
+
+      const {
+        data: existing
+      } =
+        await supabase
+          .from("friends")
+          .select("*")
+          .or(`
+            and(sender_id.eq.${currentUser.id},receiver_id.eq.${user.id}),
+            and(sender_id.eq.${user.id},receiver_id.eq.${currentUser.id})
+          `)
+          .maybeSingle();
+
+      let buttonText =
+        "Add Friend";
+
+      let disabled =
+        false;
+
+      if (existing) {
+
+        if (
+          existing.status ===
+          "pending"
+        ) {
+
+          buttonText =
+            "Pending";
+
+          disabled =
+            true;
+        }
+
+        if (
+          existing.status ===
+          "accepted"
+        ) {
+
+          buttonText =
+            "Friends";
+
+          disabled =
+            true;
+        }
+      }
 
       const card =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       card.className =
         "user-card";
@@ -117,17 +179,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
           <img
             class="user-avatar"
-            src="${user.avatar_url || 'Images/default-avatar.png'}"
+            src="${
+              user.avatar_url ||
+              "Images/default-avatar.png"
+            }"
           >
 
           <div class="user-text">
 
             <h3>
-              ${user.username || "User"}
+              ${
+                user.username ||
+                "User"
+              }
             </h3>
 
             <p>
-              Level ${Math.floor((user.xp || 0) / 100)}
+              Level ${Math.floor(
+                (user.xp || 0) / 100
+              )}
             </p>
 
           </div>
@@ -136,20 +206,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <button
           class="add-btn"
-          data-id="${user.id}">
+          data-id="${user.id}"
+          ${
+            disabled
+              ? "disabled"
+              : ""
+          }>
 
-          Add Friend
+          ${buttonText}
 
         </button>
       `;
 
       results.appendChild(card);
-    });
+    }
 
+    // ======================
     // BUTTONS
+    // ======================
 
     document
-      .querySelectorAll(".add-btn")
+      .querySelectorAll(
+        ".add-btn"
+      )
       .forEach(btn => {
 
         btn.addEventListener(
@@ -159,31 +238,47 @@ document.addEventListener("DOMContentLoaded", () => {
             const friendId =
               btn.dataset.id;
 
-            await addFriend(friendId);
+            await sendFriendRequest(
+              friendId
+            );
 
             btn.textContent =
-              "Added";
+              "Pending";
 
-            btn.disabled = true;
+            btn.disabled =
+              true;
           }
         );
       });
   }
 
   // ======================
-  // ADD FRIEND
+  // SEND REQUEST
   // ======================
 
-  async function addFriend(friendId) {
+  async function sendFriendRequest(
+    friendId
+  ) {
 
     const { error } =
       await supabase
         .from("friends")
         .insert({
 
-          user_id: currentUser.id,
+          sender_id:
+            currentUser.id,
 
-          friend_id: friendId
+          receiver_id:
+            friendId,
+
+          status:
+            "pending",
+
+          user_id:
+            currentUser.id,
+
+          friend_id:
+            friendId
 
         });
 
@@ -193,8 +288,241 @@ document.addEventListener("DOMContentLoaded", () => {
 
       return;
     }
+  }
 
-    await loadFriends();
+  // ======================
+  // LOAD REQUESTS
+  // ======================
+
+  async function loadRequests() {
+
+    const {
+      data,
+      error
+    } =
+      await supabase
+        .from("friends")
+        .select("*")
+        .eq(
+          "receiver_id",
+          currentUser.id
+        )
+        .eq(
+          "status",
+          "pending"
+        );
+
+    if (error) {
+
+      console.error(error);
+
+      return;
+    }
+
+    if (
+      !data ||
+      data.length === 0
+    ) {
+      return;
+    }
+
+    const requestTitle =
+      document.createElement(
+        "h2"
+      );
+
+    requestTitle.className =
+      "section-title";
+
+    requestTitle.textContent =
+      "Friend Requests";
+
+    friendsList.appendChild(
+      requestTitle
+    );
+
+    for (const request of data) {
+
+      const {
+        data: profile
+      } =
+        await supabase
+          .from("profiles")
+          .select("*")
+          .eq(
+            "id",
+            request.sender_id
+          )
+          .single();
+
+      if (!profile)
+        continue;
+
+      const card =
+        document.createElement(
+          "div"
+        );
+
+      card.className =
+        "user-card";
+
+      card.innerHTML = `
+        <div class="user-info">
+
+          <img
+            class="user-avatar"
+            src="${
+              profile.avatar_url ||
+              "Images/default-avatar.png"
+            }"
+          >
+
+          <div class="user-text">
+
+            <h3>
+              ${
+                profile.username ||
+                "User"
+              }
+            </h3>
+
+            <p>
+              Wants to be friends
+            </p>
+
+          </div>
+
+        </div>
+
+        <div
+          style="
+            display:flex;
+            gap:10px;
+          "
+        >
+
+          <button
+            class="accept-btn"
+            data-id="${request.id}"
+          >
+            Accept
+          </button>
+
+          <button
+            class="decline-btn"
+            data-id="${request.id}"
+          >
+            Decline
+          </button>
+
+        </div>
+      `;
+
+      friendsList.appendChild(
+        card
+      );
+    }
+
+    // ACCEPT
+
+    document
+      .querySelectorAll(
+        ".accept-btn"
+      )
+      .forEach(btn => {
+
+        btn.addEventListener(
+          "click",
+          async () => {
+
+            await acceptRequest(
+              btn.dataset.id
+            );
+
+            location.reload();
+          }
+        );
+      });
+
+    // DECLINE
+
+    document
+      .querySelectorAll(
+        ".decline-btn"
+      )
+      .forEach(btn => {
+
+        btn.addEventListener(
+          "click",
+          async () => {
+
+            await declineRequest(
+              btn.dataset.id
+            );
+
+            location.reload();
+          }
+        );
+      });
+  }
+
+  // ======================
+  // ACCEPT
+  // ======================
+
+  async function acceptRequest(id) {
+
+    const { error } =
+      await supabase
+        .from("friends")
+        .update({
+
+          status:
+            "accepted"
+
+        })
+        .eq("id", id);
+
+    if (error) {
+
+      console.error(error);
+    }
+  }
+
+  // ======================
+  // DECLINE
+  // ======================
+
+  async function declineRequest(id) {
+
+    const { error } =
+      await supabase
+        .from("friends")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+
+      console.error(error);
+    }
+  }
+
+  // ======================
+  // REMOVE FRIEND
+  // ======================
+
+  async function removeFriend(id) {
+
+    const { error } =
+      await supabase
+        .from("friends")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+
+      console.error(error);
+    }
   }
 
   // ======================
@@ -205,11 +533,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     friendsList.innerHTML = "";
 
-    const { data, error } =
+    const {
+      data,
+      error
+    } =
       await supabase
         .from("friends")
         .select("*")
-        .eq("user_id", currentUser.id);
+        .or(`
+          sender_id.eq.${currentUser?.id},
+          receiver_id.eq.${currentUser?.id}
+        `)
+        .eq(
+          "status",
+          "accepted"
+        );
 
     if (error) {
 
@@ -218,30 +556,46 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (!data || data.length === 0) {
+    if (
+      !data ||
+      data.length === 0
+    ) {
 
       friendsList.innerHTML = `
         <p class="empty-text">
           No friends yet.
         </p>
       `;
-
-      return;
     }
 
     for (const friend of data) {
 
-      const { data: profile } =
+      const friendId =
+        friend.sender_id ===
+        currentUser.id
+
+          ? friend.receiver_id
+          : friend.sender_id;
+
+      const {
+        data: profile
+      } =
         await supabase
           .from("profiles")
           .select("*")
-          .eq("id", friend.friend_id)
+          .eq(
+            "id",
+            friendId
+          )
           .single();
 
-      if (!profile) continue;
+      if (!profile)
+        continue;
 
       const card =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       card.className =
         "user-card";
@@ -251,26 +605,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
           <img
             class="user-avatar"
-            src="${profile.avatar_url || 'Images/default-avatar.png'}"
+            src="${
+              profile.avatar_url ||
+              "Images/default-avatar.png"
+            }"
           >
 
           <div class="user-text">
 
             <h3>
-              ${profile.username || "User"}
+              ${
+                profile.username ||
+                "User"
+              }
             </h3>
 
             <p>
-              🔥 ${profile.streak || 0} day streak
+              🔥 ${
+                profile.streak || 0
+              } day streak
             </p>
 
           </div>
 
         </div>
 
+        <button
+          class="remove-btn"
+          data-id="${friend.id}"
+        >
+          Remove
+        </button>
       `;
 
-      friendsList.appendChild(card);
+      friendsList.appendChild(
+        card
+      );
+
+      const removeBtn =
+        card.querySelector(
+          ".remove-btn"
+        );
+
+      removeBtn.addEventListener(
+        "click",
+        async () => {
+
+          await removeFriend(
+            friend.id
+          );
+
+          location.reload();
+        }
+      );
     }
   }
 

@@ -4,53 +4,87 @@
 
   <meta charset="UTF-8">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Friends</title>
 
-  <link rel="stylesheet"
-        href="CSS/friends.css">
+  <link
+    rel="stylesheet"
+    href="CSS/friends.css"
+  >
 
 </head>
 
 <body>
 
+  <!-- BACKGROUND GLOWS -->
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
   <!-- TOP BAR -->
 
   <div class="top-bar">
 
-    <img src="Images/VELYN Logos-03.png"
-         class="nav-logo">
+    <img
+      src="Images/VELYN Logos-03.png"
+      class="nav-logo"
+    >
 
-    <a href="app.html"
-       class="back-btn">
-
+    <a
+      href="app.html"
+      class="back-btn"
+    >
       Dashboard
-
     </a>
 
   </div>
 
-  <!-- PAGE -->
+  <!-- HERO -->
+
+  <div class="friends-hero">
+
+    <span class="hero-badge">
+      SOCIAL FOCUS
+    </span>
+
+    <h1>
+      Build Together
+    </h1>
+
+    <p>
+      Add friends, stay accountable,
+      and grow your focus streaks together.
+    </p>
+
+  </div>
+
+  <!-- MAIN -->
 
   <div class="friends-container">
 
-    <h1>
-      Friends
-    </h1>
-
-    <p class="subtitle">
-      Search users and connect with friends.
-    </p>
-
-    <!-- SEARCH -->
+    <!-- SEARCH USERS -->
 
     <div class="section">
 
-      <h2 class="section-title">
-        Search Users
-      </h2>
+      <div class="section-header">
+
+        <div>
+
+          <h2 class="section-title">
+            Search Users
+          </h2>
+
+          <p class="section-subtitle">
+            Find users by username.
+          </p>
+
+        </div>
+
+      </div>
 
       <div class="search-box">
 
@@ -68,7 +102,63 @@
 
       <!-- SEARCH RESULTS -->
 
-      <div id="results">
+      <div
+        id="results"
+        class="cards-grid"
+      >
+
+      </div>
+
+    </div>
+
+    <!-- FRIEND REQUESTS -->
+
+    <div class="section">
+
+      <div class="section-header">
+
+        <div>
+
+          <h2 class="section-title">
+            Friend Requests
+          </h2>
+
+          <p class="section-subtitle">
+            Accept or decline requests.
+          </p>
+
+        </div>
+
+        <span
+          class="count-badge"
+          id="requestCount"
+        >
+          0
+        </span>
+
+      </div>
+
+      <div
+        id="requestsList"
+        class="cards-grid"
+      >
+
+      </div>
+
+      <!-- EMPTY -->
+
+      <div
+        class="empty-state"
+        id="requestsEmpty"
+      >
+
+        <span>
+          ✨
+        </span>
+
+        <p>
+          No pending requests.
+        </p>
 
       </div>
 
@@ -78,13 +168,74 @@
 
     <div class="section">
 
-      <h2 class="section-title">
-        Your Friends
-      </h2>
+      <div class="section-header">
 
-      <div id="friendsList">
+        <div>
+
+          <h2 class="section-title">
+            Your Friends
+          </h2>
+
+          <p class="section-subtitle">
+            Your focus accountability circle.
+          </p>
+
+        </div>
+
+        <span
+          class="count-badge"
+          id="friendsCount"
+        >
+          0
+        </span>
 
       </div>
+
+      <div
+        id="friendsList"
+        class="cards-grid"
+      >
+
+      </div>
+
+      <!-- EMPTY -->
+
+      <div
+        class="empty-state"
+        id="friendsEmpty"
+      >
+
+        <span>
+          👥
+        </span>
+
+        <p>
+          You have no friends added yet.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- POPUP -->
+
+  <div
+    id="popup"
+    class="popup"
+  >
+
+    <div class="popup-content">
+
+      <p id="popupText"></p>
+
+      <button
+        type="button"
+        id="popupBtn"
+      >
+        Continue
+      </button>
 
     </div>
 

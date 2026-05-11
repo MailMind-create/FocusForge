@@ -1,153 +1,460 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-// ======================
-// SUPABASE
-// ======================
+  // ======================
+  // SUPABASE
+  // ======================
 
-const SUPABASE_URL = "https://eztflaqhcamoftvosegx.supabase.co";
+  const SUPABASE_URL =
+    "https://eztflaqhcamoftvosegx.supabase.co";
 
-const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV6dGZsYXFoY2Ftb2Z0dm9zZWd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzUzNDAsImV4cCI6MjA5MzQxMTM0MH0.beBy1rIxqy0Y70IkB8-tZCs9RlZcMFn4bPaYL_Rqw14";
+  const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV6dGZsYXFoY2Ftb2Z0dm9zZWd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzUzNDAsImV4cCI6MjA5MzQxMTM0MH0.beBy1rIxqy0Y70IkB8-tZCs9RlZcMFn4bPaYL_Rqw14";
 
-const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+  const supabase =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
 
-// ======================
-// ELEMENTS
-// ======================
+  // ======================
+  // ELEMENTS
+  // ======================
 
-const usernameInput =
-  document.getElementById("usernameInput");
+  const usernameInput =
+    document.getElementById(
+      "usernameInput"
+    );
 
-const saveBtn =
-  document.getElementById("saveBtn");
+  const emailInput =
+    document.getElementById(
+      "emailInput"
+    );
 
-const statusText =
-  document.getElementById("statusText");
+  const saveBtn =
+    document.getElementById(
+      "saveBtn"
+    );
 
-// ======================
-// STATE
-// ======================
+  const statusText =
+    document.getElementById(
+      "statusText"
+    );
 
-let currentUser = null;
+  // ======================
+  // PLAN
+  // ======================
 
-// ======================
-// INIT
-// ======================
+  const planBadge =
+    document.getElementById(
+      "planBadge"
+    );
 
-async function init() {
+  const upgradeBtn =
+    document.getElementById(
+      "upgradeBtn"
+    );
 
-  const { data: { session } } =
-    await supabase.auth.getSession();
+  const managePlanBtn =
+    document.getElementById(
+      "managePlanBtn"
+    );
 
-  if (!session) {
-    window.location.href = "auth.html";
-    return;
+  // ======================
+  // ACCOUNT
+  // ======================
+
+  const logoutBtn =
+    document.getElementById(
+      "logoutBtn"
+    );
+
+  // ======================
+  // STATE
+  // ======================
+
+  let currentUser = null;
+
+  let isMax = false;
+
+  // ======================
+  // INIT
+  // ======================
+
+  async function init() {
+
+    const {
+      data: { session }
+    } =
+      await supabase.auth.getSession();
+
+    if (!session) {
+
+      window.location.href =
+        "auth.html";
+
+      return;
+    }
+
+    currentUser =
+      session.user;
+
+    console.log(
+      "Current User:",
+      currentUser
+    );
+
+    await loadProfile();
+
+    setupButtons();
   }
 
-  currentUser = session.user;
+  // ======================
+  // LOAD PROFILE
+  // ======================
 
-  await loadProfile();
-}
+  async function loadProfile() {
 
-// ======================
-// LOAD PROFILE
-// ======================
+    // ======================
+    // LOAD PROFILE DATA
+    // ======================
 
-async function loadProfile() {
+    const {
+      data,
+      error
+    } =
+      await supabase
+        .from("profiles")
+        .select("*")
+        .eq(
+          "id",
+          currentUser.id
+        )
+        .maybeSingle();
 
-  const { data, error } = await supabase
-    .from("profiles")
-    .select("username")
-    .eq("id", currentUser.id)
-    .maybeSingle();
+    if (error) {
 
-  if (error) {
-    console.error(error);
-    return;
+      console.error(
+        "Profile Error:",
+        error
+      );
+
+      statusText.textContent =
+        "Failed to load profile.";
+
+      return;
+    }
+
+    // ======================
+    // EMAIL
+    // ======================
+
+    if (
+      emailInput
+    ) {
+
+      emailInput.value =
+        currentUser.email || "";
+    }
+
+    // ======================
+    // USERNAME
+    // ======================
+
+    if (
+      usernameInput &&
+      data?.username
+    ) {
+
+      usernameInput.value =
+        data.username;
+    }
+
+    // ======================
+    // PLAN
+    // ======================
+
+    isMax =
+      data?.plan === "max";
+
+    console.log(
+      "Is MAX:",
+      isMax
+    );
+
+    updatePlanUI();
   }
 
-  if (data?.username) {
-    usernameInput.value = data.username;
-  }
-}
+  // ======================
+  // PLAN UI
+  // ======================
 
-// ======================
-// SAVE USERNAME
-// ======================
+  function updatePlanUI() {
 
-saveBtn.addEventListener("click", async () => {
+    if (!planBadge)
+      return;
 
-  const username =
-    usernameInput.value.trim();
+    if (isMax) {
 
-  // VALIDATION
+      planBadge.textContent =
+        "VELYN MAX";
 
-  if (!username) {
+      planBadge.classList.add(
+        "max-active"
+      );
 
-    statusText.textContent =
-      "Enter a username.";
+      if (upgradeBtn) {
 
-    return;
-  }
+        upgradeBtn.style.display =
+          "none";
+      }
 
-  if (username.length < 3) {
+      if (managePlanBtn) {
 
-    statusText.textContent =
-      "Username too short.";
+        managePlanBtn.style.display =
+          "inline-flex";
+      }
 
-    return;
-  }
+    } else {
 
-  // CHECK IF USERNAME EXISTS
+      planBadge.textContent =
+        "FREE";
 
-  const { data: existingUser } =
-    await supabase
-      .from("profiles")
-      .select("id")
-      .eq("username", username)
-      .maybeSingle();
+      planBadge.classList.remove(
+        "max-active"
+      );
 
-  if (
-    existingUser &&
-    existingUser.id !== currentUser.id
-  ) {
+      if (upgradeBtn) {
 
-    statusText.textContent =
-      "Username already taken.";
+        upgradeBtn.style.display =
+          "inline-flex";
+      }
 
-    return;
-  }
+      if (managePlanBtn) {
 
-  // SAVE USERNAME
-
-  const { error } = await supabase
-    .from("profiles")
-    .update({
-      username: username
-    })
-    .eq("id", currentUser.id);
-
-  if (error) {
-
-    console.error(error);
-
-    statusText.textContent =
-      "Something went wrong.";
-
-    return;
+        managePlanBtn.style.display =
+          "none";
+      }
+    }
   }
 
-  statusText.textContent =
-    "✅ Username saved.";
-});
+  // ======================
+  // BUTTONS
+  // ======================
 
-// ======================
-// START
-// ======================
+  function setupButtons() {
 
-init();
+    // ======================
+    // SAVE USERNAME
+    // ======================
+
+    if (saveBtn) {
+
+      saveBtn.addEventListener(
+        "click",
+        async () => {
+
+          const username =
+            usernameInput.value.trim();
+
+          // VALIDATION
+
+          if (!username) {
+
+            statusText.textContent =
+              "Enter a username.";
+
+            return;
+          }
+
+          if (
+            username.length < 3
+          ) {
+
+            statusText.textContent =
+              "Username too short.";
+
+            return;
+          }
+
+          if (
+            username.length > 20
+          ) {
+
+            statusText.textContent =
+              "Username too long.";
+
+            return;
+          }
+
+          // ======================
+          // CHECK IF EXISTS
+          // ======================
+
+          const {
+            data: existingUser,
+            error: checkError
+          } =
+            await supabase
+              .from("profiles")
+              .select("id")
+              .eq(
+                "username",
+                username
+              )
+              .maybeSingle();
+
+          if (checkError) {
+
+            console.error(
+              checkError
+            );
+
+            statusText.textContent =
+              "Failed checking username.";
+
+            return;
+          }
+
+          if (
+            existingUser &&
+            existingUser.id !==
+              currentUser.id
+          ) {
+
+            statusText.textContent =
+              "Username already taken.";
+
+            return;
+          }
+
+          // ======================
+          // SAVE
+          // ======================
+
+          saveBtn.disabled =
+            true;
+
+          saveBtn.textContent =
+            "Saving...";
+
+          const {
+            error
+          } =
+            await supabase
+              .from("profiles")
+              .update({
+
+                username: username
+
+              })
+              .eq(
+                "id",
+                currentUser.id
+              );
+
+          saveBtn.disabled =
+            false;
+
+          saveBtn.textContent =
+            "Save Username";
+
+          if (error) {
+
+            console.error(
+              error
+            );
+
+            statusText.textContent =
+              "Something went wrong.";
+
+            return;
+          }
+
+          statusText.textContent =
+            "✅ Username updated.";
+        }
+      );
+    }
+
+    // ======================
+    // UPGRADE
+    // ======================
+
+    if (upgradeBtn) {
+
+      upgradeBtn.addEventListener(
+        "click",
+        () => {
+
+          statusText.textContent =
+            "Stripe integration coming next.";
+        }
+      );
+    }
+
+    // ======================
+    // MANAGE PLAN
+    // ======================
+
+    if (managePlanBtn) {
+
+      managePlanBtn.addEventListener(
+        "click",
+        () => {
+
+          statusText.textContent =
+            "Subscription management coming soon.";
+        }
+      );
+    }
+
+    // ======================
+    // LOGOUT
+    // ======================
+
+    if (logoutBtn) {
+
+      logoutBtn.addEventListener(
+        "click",
+        async () => {
+
+          logoutBtn.disabled =
+            true;
+
+          logoutBtn.textContent =
+            "Logging out...";
+
+          const {
+            error
+          } =
+            await supabase.auth.signOut();
+
+          if (error) {
+
+            console.error(
+              error
+            );
+
+            logoutBtn.disabled =
+              false;
+
+            logoutBtn.textContent =
+              "Logout";
+
+            return;
+          }
+
+          window.location.href =
+            "index.html";
+        }
+      );
+    }
+  }
+
+  // ======================
+  // START
+  // ======================
+
+  init();
 
 });

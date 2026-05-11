@@ -4,29 +4,81 @@
 
   <meta charset="UTF-8">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <title>View Profile</title>
+  <title>
+    VELYN — View Profile
+  </title>
 
-  <link rel="stylesheet"
-        href="CSS/view-profile.css">
+  <meta
+    name="description"
+    content="View user profiles, stats, streaks and progression inside VELYN."
+  >
+
+  <!-- GOOGLE FONT -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="CSS/view-profile.css"
+  >
 
 </head>
 
 <body>
 
+  <!-- BACKGROUND -->
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
   <!-- TOP BAR -->
 
   <div class="top-bar">
 
-    <img src="Images/VELYN Logos-03.png"
-         class="nav-logo">
+    <!-- LOGO -->
 
-    <a href="leaderboard.html"
-       class="back-btn">
+    <a
+      href="app.html"
+      class="logo-link"
+    >
 
-      Back
+      <img
+        src="Images/VELYN Logos-03.png"
+        class="nav-logo"
+        alt="VELYN Logo"
+      >
+
+    </a>
+
+    <!-- BACK BUTTON -->
+
+    <a
+      href="leaderboard.html"
+      class="back-btn"
+    >
+
+      ← Leaderboard
 
     </a>
 
@@ -34,91 +86,175 @@
 
   <!-- PROFILE -->
 
-  <div class="profile-container">
+  <div class="profile-wrapper">
 
-    <!-- AVATAR -->
+    <div class="profile-container">
 
-    <div class="avatar">
+      <!-- PROFILE TOP -->
 
-      <img
-        id="avatarImage"
-        class="avatar-image"
-      >
+      <div class="profile-top">
 
-      <span id="avatarLetter">
-        U
-      </span>
+        <!-- AVATAR -->
 
-    </div>
+        <div
+          class="avatar"
+          id="avatarContainer"
+        >
 
-    <!-- USERNAME -->
+          <img
+            id="avatarImage"
+            class="avatar-image"
+            alt="Profile Picture"
+          >
 
-    <h1 id="profileUsername">
-      User
-    </h1>
+          <span id="avatarLetter">
 
-    <!-- JOIN DATE -->
+            U
 
-    <p class="joined-text"
-       id="joinedDate">
+          </span>
 
-      Joined recently
+        </div>
 
-    </p>
+        <!-- USERNAME -->
 
-    <!-- BIO -->
+        <h1 id="profileUsername">
 
-    <div class="bio-box">
+          User
 
-      <p id="profileBio">
+        </h1>
 
-        No bio yet.
+        <!-- JOIN DATE -->
 
-      </p>
+        <p
+          class="joined-text"
+          id="joinedDate"
+        >
 
-    </div>
+          Joined recently
 
-    <!-- STATS -->
-
-    <div class="profile-stats">
-
-      <div class="profile-card">
-
-        <h2 id="profileXP">
-          0
-        </h2>
-
-        <p>XP</p>
+        </p>
 
       </div>
 
-      <div class="profile-card">
+      <!-- BIO -->
 
-        <h2 id="profileLevel">
-          0
-        </h2>
+      <div class="bio-section">
 
-        <p>Level</p>
+        <div class="section-title">
+
+          <h3>
+            About User
+          </h3>
+
+          <p>
+            Learn more about this user's focus journey.
+          </p>
+
+        </div>
+
+        <div class="bio-box">
+
+          <p id="profileBio">
+
+            No bio yet.
+
+          </p>
+
+        </div>
 
       </div>
 
-      <div class="profile-card">
+      <!-- STATS -->
 
-        <h2 id="profileStreak">
-          0
-        </h2>
+      <div class="stats-section">
 
-        <p>🔥 Streak</p>
+        <div class="section-title">
 
-      </div>
+          <h3>
+            User Progress
+          </h3>
 
-      <div class="profile-card">
+          <p>
+            View streaks, XP and productivity progress.
+          </p>
 
-        <h2 id="profileSessions">
-          0
-        </h2>
+        </div>
 
-        <p>Sessions</p>
+        <div class="profile-stats">
+
+          <!-- XP -->
+
+          <div class="profile-card">
+
+            <h2 id="profileXP">
+
+              0
+
+            </h2>
+
+            <p>
+
+              ⚡ XP
+
+            </p>
+
+          </div>
+
+          <!-- LEVEL -->
+
+          <div class="profile-card">
+
+            <h2 id="profileLevel">
+
+              0
+
+            </h2>
+
+            <p>
+
+              🧠 Level
+
+            </p>
+
+          </div>
+
+          <!-- STREAK -->
+
+          <div class="profile-card">
+
+            <h2 id="profileStreak">
+
+              0
+
+            </h2>
+
+            <p>
+
+              🔥 Streak
+
+            </p>
+
+          </div>
+
+          <!-- SESSIONS -->
+
+          <div class="profile-card">
+
+            <h2 id="profileSessions">
+
+              0
+
+            </h2>
+
+            <p>
+
+              📊 Sessions
+
+            </p>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -136,3 +272,4 @@
 
 </body>
 </html>
+```

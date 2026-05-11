@@ -1,77 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
 
-  <link rel="stylesheet" href="CSS/app.css">
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Dashboard
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="CSS/app.css"
+  >
+
 </head>
 
 <body>
 
+  <!-- BACKGROUND -->
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
   <!-- TOP BAR -->
+
   <div class="top-bar">
 
-    <img src="Images/VELYN Logos-03.png"
-         class="nav-logo">
+    <img
+      src="Images/VELYN Logos-03.png"
+      class="nav-logo"
+    >
 
     <!-- MENU -->
 
     <div class="menu-wrapper">
 
-      <button class="menu-btn"
-              id="menuBtn">
-
+      <button
+        class="menu-btn"
+        id="menuBtn"
+      >
         ☰
-
       </button>
 
       <!-- DROPDOWN -->
 
-      <div class="dropdown-menu"
-           id="dropdownMenu">
+      <div
+        class="dropdown-menu"
+        id="dropdownMenu"
+      >
 
-        <a href="profile.html"
-           class="menu-link">
-
+        <a
+          href="profile.html"
+          class="menu-link"
+        >
           Profile
-
         </a>
 
-        <a href="friends.html"
-           class="menu-link">
-
+        <a
+          href="friends.html"
+          class="menu-link"
+        >
           Friends
-
         </a>
 
-        <a href="leaderboard.html"
-           class="menu-link">
-
+        <a
+          href="leaderboard.html"
+          class="menu-link"
+        >
           Leaderboard
-
         </a>
 
-        <a href="analytics.html"
-           class="menu-link">
-
+        <a
+          href="analytics.html"
+          class="menu-link"
+        >
           Analytics
-
         </a>
 
-        <a href="daily-goals.html"
-           class="menu-link">
-
+        <a
+          href="daily-goals.html"
+          class="menu-link"
+        >
           Daily Goals
-
         </a>
 
-        <a href="settings.html"
-           class="menu-link">
+        <!-- MAX SECTION -->
 
+        <div class="menu-max-divider">
+
+          <span>
+            VELYN MAX
+          </span>
+
+        </div>
+
+        <a
+          href="planner.html"
+          class="menu-link max-link"
+          id="plannerLink"
+        >
+          Planner
+        </a>
+
+        <a
+          href="deep-analytics.html"
+          class="menu-link max-link"
+          id="deepAnalyticsLink"
+        >
+          Deep Analytics
+        </a>
+
+        <a
+          href="history.html"
+          class="menu-link max-link"
+          id="historyLink"
+        >
+          Session History
+        </a>
+
+        <a
+          href="settings.html"
+          class="menu-link"
+        >
           Settings
-
         </a>
 
         <button class="logout-btn">
@@ -85,10 +141,13 @@
   </div>
 
   <!-- HERO -->
+
   <div class="hero">
 
-    <img src="Images/VELYN Logos-03.png"
-         class="hero-logo">
+    <img
+      src="Images/VELYN Logos-03.png"
+      class="hero-logo"
+    >
 
     <!-- USERNAME -->
 
@@ -100,19 +159,33 @@
       User
     </h2>
 
-    <h1>Stay consistent.</h1>
+    <h1>
+      Stay consistent.
+    </h1>
 
-    <p>Build discipline every day.</p>
+    <p>
+      Build discipline every day.
+    </p>
+
+    <!-- XP -->
 
     <div class="xp-box">
 
-      <h2 id="xp">0 XP</h2>
+      <h2 id="xp">
+        0 XP
+      </h2>
 
-      <p id="level">Level 0</p>
+      <p id="level">
+        Level 0
+      </p>
 
       <div class="level-bar">
-        <div class="level-fill"
-             id="levelFill"></div>
+
+        <div
+          class="level-fill"
+          id="levelFill"
+        ></div>
+
       </div>
 
       <p id="levelProgress">
@@ -124,9 +197,12 @@
   </div>
 
   <!-- DAILY GOAL -->
+
   <div class="goal-box">
 
-    <h3>Daily Goal</h3>
+    <h3>
+      Daily Goal
+    </h3>
 
     <p id="goalText">
       0 / 2 sessions
@@ -134,43 +210,148 @@
 
     <div class="progress-bar">
 
-      <div class="progress"
-           id="progress"></div>
+      <div
+        class="progress"
+        id="progress"
+      ></div>
 
     </div>
 
   </div>
 
   <!-- STATS -->
+
   <div class="stats">
 
     <div class="stat-card">
 
-      <h2 id="streak">0</h2>
+      <h2 id="streak">
+        0
+      </h2>
 
-      <p>🔥 Streak</p>
+      <p>
+        🔥 Streak
+      </p>
 
     </div>
 
     <div class="stat-card">
 
-      <h2 id="sessions">0</h2>
+      <h2 id="sessions">
+        0
+      </h2>
 
-      <p>📊 Sessions</p>
+      <p>
+        📊 Sessions
+      </p>
+
+    </div>
+
+    <!-- STREAK FREEZES -->
+
+    <div class="stat-card">
+
+      <h2 id="streakFreeze">
+        0
+      </h2>
+
+      <p>
+        ❄️ Streak Freezes
+      </p>
 
     </div>
 
   </div>
 
-  <!-- ACTION -->
+  <!-- MAIN ACTION -->
+
   <div class="action">
 
-    <a href="focus.html"
-       class="start-btn">
-
+    <a
+      href="focus.html"
+      class="start-btn"
+    >
       Start Focus Session
-
     </a>
+
+  </div>
+
+  <!-- MAX FEATURES -->
+
+  <div class="max-section">
+
+    <div class="max-section-top">
+
+      <span class="max-badge">
+        VELYN MAX
+      </span>
+
+      <p>
+        Advanced Productivity System
+      </p>
+
+    </div>
+
+    <div class="max-grid">
+
+      <!-- PLANNER -->
+
+      <a
+        href="planner.html"
+        class="max-card"
+        id="plannerCard"
+      >
+
+        <h3>
+          Planner
+        </h3>
+
+        <p>
+          Organize tasks,
+          priorities and planning.
+        </p>
+
+      </a>
+
+      <!-- DEEP ANALYTICS -->
+
+      <a
+        href="deep-analytics.html"
+        class="max-card"
+        id="deepAnalyticsCard"
+      >
+
+        <h3>
+          Deep Analytics
+        </h3>
+
+        <p>
+          Analyze focus,
+          energy and distractions.
+        </p>
+
+      </a>
+
+      <!-- HISTORY -->
+
+      <a
+        href="history.html"
+        class="max-card"
+        id="historyCard"
+      >
+
+        <h3>
+          Session History
+        </h3>
+
+        <p>
+          View past sessions
+          and productivity trends.
+        </p>
+
+      </a>
+
+    </div>
 
   </div>
 

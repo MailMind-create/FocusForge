@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Focus History</title>
+
+  <link rel="stylesheet" href="CSS/history.css">
+
+</head>
+
+<body>
+
+  <!-- BACKGROUND GLOWS -->
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <!-- =======================
+       TOP BAR
+  ======================== -->
+
+  <div class="top-bar">
+
+    <img
+      src="Images/VELYN Logos-03.png"
+      class="nav-logo"
+    >
+
+    <a
+      href="app.html"
+      class="back-btn"
+    >
+      Back to Dashboard
+    </a>
+
+  </div>
+
+  <!-- =======================
+       HERO
+  ======================== -->
+
+  <section class="history-hero">
+
+    <span class="max-badge">
+      VELYN MAX
+    </span>
+
+    <h1>
+      Focus History
+    </h1>
+
+    <p>
+      Review your deep work sessions,
+      reflections and consistency.
+    </p>
+
+  </section>
+
+  <!-- =======================
+       LOCKED STATE
+  ======================== -->
+
+  <section
+    class="locked-wrapper"
+    id="lockedWrapper"
+  >
+
+    <div class="locked-card">
+
+      <span class="locked-icon">
+        🔒
+      </span>
+
+      <h2>
+        Unlock Focus History
+      </h2>
+
+      <p>
+        Access your complete session history,
+        deep reflections, focus ratings,
+        productivity tracking and future analytics.
+      </p>
+
+      <div class="locked-features">
+
+        <div class="feature-pill">
+          Session Timeline
+        </div>
+
+        <div class="feature-pill">
+          Reflection Archive
+        </div>
+
+        <div class="feature-pill">
+          Focus Ratings
+        </div>
+
+        <div class="feature-pill">
+          Deep Session Tracking
+        </div>
+
+        <div class="feature-pill">
+          Productivity Analytics
+        </div>
+
+      </div>
+
+      <button
+        class="upgrade-btn"
+        id="upgradeBtn"
+      >
+        Upgrade to VELYN MAX
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- =======================
+       HISTORY CONTENT
+  ======================== -->
+
+  <main
+    class="history-container"
+    id="historyContainer"
+  >
+
+    <!-- FILTERS -->
+
+    <div class="history-filters">
+
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="Search reflections or categories..."
+      >
+
+      <select
+        id="categoryFilter"
+        class="filter-select"
+      >
+
+        <option value="">
+          All Categories
+        </option>
+
+        <option value="Studying">
+          Studying
+        </option>
+
+        <option value="Coding">
+          Coding
+        </option>
+
+        <option value="Writing">
+          Writing
+        </option>
+
+        <option value="Reading">
+          Reading
+        </option>
+
+        <option value="Work">
+          Work
+        </option>
+
+        <option value="Creative">
+          Creative
+        </option>
+
+      </select>
+
+    </div>
+
+    <!-- SESSION LIST -->
+
+    <div
+      class="session-list"
+      id="sessionList"
+    >
+
+    </div>
+
+    <!-- EMPTY STATE -->
+
+    <div
+      class="empty-state"
+      id="emptyState"
+    >
+
+      <span>
+        📖
+      </span>
+
+      <h2>
+        No Sessions Yet
+      </h2>
+
+      <p>
+        Complete a focus session to start building your history.
+      </p>
+
+    </div>
+
+  </main>
+
+  <!-- =======================
+       POPUP
+  ======================== -->
+
+  <div
+    id="popup"
+    class="popup"
+  >
+
+    <div class="popup-content">
+
+      <p id="popupText"></p>
+
+      <button
+        type="button"
+        id="popupBtn"
+      >
+        Continue
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- =======================
+       SCRIPTS
+  ======================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="JS/history.js"></script>
+
+</body>
+</html>

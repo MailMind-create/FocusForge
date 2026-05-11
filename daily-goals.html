@@ -1,104 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Daily Goals</title>
 
-  <link rel="stylesheet" href="CSS/daily-goals.css">
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    VELYN — Daily Goals
+  </title>
+
+  <meta
+    name="description"
+    content="Set daily study and focus goals inside VELYN and track your consistency."
+  >
+
+  <!-- GOOGLE FONT -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="CSS/daily-goals.css"
+  >
+
 </head>
 
 <body>
 
+  <!-- BACKGROUND -->
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
   <!-- TOP BAR -->
+
   <div class="top-bar">
 
-    <a href="app.html" class="back-btn">
-      ← Dashboard
-    </a>
+    <!-- LOGO -->
 
-    <img src="Images/VELYN Logos-03.png" class="nav-logo">
-
-  </div>
-
-  <!-- HERO -->
-  <div class="hero">
-
-    <h1>Daily Goals</h1>
-
-    <p>
-      Set study goals and track your daily progress.
-    </p>
-
-  </div>
-
-  <!-- CREATE GOAL -->
-  <div class="create-goal-card">
-
-    <h2>Create Goal</h2>
-
-    <input
-      type="text"
-      id="subjectInput"
-      placeholder="Subject or Goal Name"
+    <a
+      href="app.html"
+      class="logo-link"
     >
 
-    <div class="time-inputs">
+      <img
+        src="Images/VELYN Logos-03.png"
+        class="nav-logo"
+        alt="VELYN Logo"
+      >
 
-      <div class="time-box">
-        <label>Hours</label>
+    </a>
 
-        <input
-          type="number"
-          id="hoursInput"
-          min="0"
-          max="24"
-          value="1"
-        >
+    <!-- BACK BUTTON -->
+
+    <a
+      href="app.html"
+      class="back-btn"
+    >
+
+      ← Dashboard
+
+    </a>
+
+  </div>
+
+  <!-- PAGE -->
+
+  <div class="goals-wrapper">
+
+    <div class="goals-container-page">
+
+      <!-- HERO -->
+
+      <div class="hero">
+
+        <div class="hero-badge">
+
+          Discipline • Progress • Consistency
+
+        </div>
+
+        <h1>
+
+          Daily Goals
+
+        </h1>
+
+        <p>
+
+          Set focus goals,
+          track your study time,
+          and stay consistent every day.
+
+        </p>
+
       </div>
 
-      <div class="time-box">
-        <label>Minutes</label>
+      <!-- CREATE GOAL -->
 
-        <input
-          type="number"
-          id="minutesInput"
-          min="0"
-          max="59"
-          value="0"
-        >
+      <div class="create-goal-card">
+
+        <div class="section-title">
+
+          <h2>
+
+            Create Goal
+
+          </h2>
+
+          <p>
+
+            Add a daily study or productivity target.
+
+          </p>
+
+        </div>
+
+        <!-- SUBJECT -->
+
+        <div class="input-group">
+
+          <label>
+
+            Goal Name
+
+          </label>
+
+          <input
+            type="text"
+            id="subjectInput"
+            placeholder="Example: Math Study Session"
+          >
+
+        </div>
+
+        <!-- TIME INPUTS -->
+
+        <div class="time-inputs">
+
+          <!-- HOURS -->
+
+          <div class="time-box">
+
+            <label>
+
+              Hours
+
+            </label>
+
+            <input
+              type="number"
+              id="hoursInput"
+              min="0"
+              max="24"
+              value="1"
+            >
+
+          </div>
+
+          <!-- MINUTES -->
+
+          <div class="time-box">
+
+            <label>
+
+              Minutes
+
+            </label>
+
+            <input
+              type="number"
+              id="minutesInput"
+              min="0"
+              max="59"
+              value="0"
+            >
+
+          </div>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <button id="createGoalBtn">
+
+          Create Goal
+
+        </button>
+
+      </div>
+
+      <!-- GOALS -->
+
+      <div
+        class="goals-container"
+        id="goalsContainer"
+      >
+
+        <!-- goals inserted here -->
+
+      </div>
+
+      <!-- EMPTY -->
+
+      <div
+        class="empty-state"
+        id="emptyState"
+      >
+
+        <div class="empty-icon">
+
+          🎯
+
+        </div>
+
+        <h3>
+
+          No goals yet
+
+        </h3>
+
+        <p>
+
+          Create your first daily goal
+          to start tracking your progress.
+
+        </p>
+
       </div>
 
     </div>
 
-    <button id="createGoalBtn">
-      Create Goal
-    </button>
-
-  </div>
-
-  <!-- GOALS -->
-  <div class="goals-container" id="goalsContainer">
-
-    <!-- goals inserted here -->
-
-  </div>
-
-  <!-- EMPTY -->
-  <div class="empty-state" id="emptyState">
-
-    <h3>No goals yet</h3>
-
-    <p>
-      Create your first daily goal to start tracking progress.
-    </p>
-
   </div>
 
   <!-- SUPABASE -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- JS -->
+
   <script src="JS/daily-goals.js"></script>
 
 </body>

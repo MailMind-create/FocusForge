@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Deep Analytics
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="CSS/deep-analytics.css"
+  >
+
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <!-- TOP BAR -->
+
+  <div class="top-bar">
+
+    <img
+      src="Images/VELYN Logos-03.png"
+      class="logo"
+    >
+
+    <a
+      href="app.html"
+      class="back-btn"
+    >
+      Back
+    </a>
+
+  </div>
+
+  <!-- PAGE -->
+
+  <div class="analytics-page">
+
+    <!-- HEADER -->
+
+    <div class="analytics-header">
+
+      <span class="max-badge">
+        VELYN MAX
+      </span>
+
+      <h1>
+        Deep Analytics
+      </h1>
+
+      <p>
+        Understand your focus patterns and performance.
+      </p>
+
+    </div>
+
+    <!-- OVERVIEW -->
+
+    <div class="overview-grid">
+
+      <!-- FOCUS -->
+
+      <div class="analytics-card">
+
+        <p class="card-label">
+          Average Focus
+        </p>
+
+        <h2 id="avgFocus">
+          --
+        </h2>
+
+      </div>
+
+      <!-- ENERGY -->
+
+      <div class="analytics-card">
+
+        <p class="card-label">
+          Average Energy
+        </p>
+
+        <h2 id="avgEnergy">
+          --
+        </h2>
+
+      </div>
+
+      <!-- DISTRACTION -->
+
+      <div class="analytics-card">
+
+        <p class="card-label">
+          Average Distraction
+        </p>
+
+        <h2 id="avgDistraction">
+          --
+        </h2>
+
+      </div>
+
+      <!-- BEST CATEGORY -->
+
+      <div class="analytics-card">
+
+        <p class="card-label">
+          Best Category
+        </p>
+
+        <h2 id="bestCategory">
+          --
+        </h2>
+
+      </div>
+
+    </div>
+
+    <!-- REFLECTIONS -->
+
+    <div class="reflection-section">
+
+      <div class="section-top">
+
+        <span class="max-badge">
+          REFLECTIONS
+        </span>
+
+        <p>
+          Recent Deep Session Notes
+        </p>
+
+      </div>
+
+      <div
+        class="reflection-feed"
+        id="reflectionFeed"
+      >
+
+        <!-- JS INSERTS REFLECTIONS -->
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- POPUP -->
+
+  <div
+    id="popup"
+    class="popup"
+  >
+
+    <div class="popup-content">
+
+      <p id="popupText"></p>
+
+      <button
+        type="button"
+        id="popupBtn"
+      >
+        Continue
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- SCRIPTS -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="JS/deep-analytics.js"></script>
+
+</body>
+</html>

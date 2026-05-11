@@ -2,149 +2,495 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>Analytics</title>
 
-  <link rel="stylesheet" href="CSS/analytics.css">
+  <link
+    rel="stylesheet"
+    href="CSS/analytics.css"
+  >
 </head>
 
 <body>
 
+  <!-- BG GLOWS -->
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
   <!-- TOP BAR -->
+
   <div class="top-bar">
 
-    <a href="app.html" class="back-btn">← Dashboard</a>
+    <a
+      href="app.html"
+      class="back-btn"
+    >
+      ← Dashboard
+    </a>
 
-    <img src="Images/VELYN Logos-03.png" class="nav-logo">
+    <img
+      src="Images/VELYN Logos-03.png"
+      class="nav-logo"
+    >
 
   </div>
 
   <!-- HERO -->
-  <div class="hero">
 
-    <h1>Analytics</h1>
-    <p>Track your consistency and focus progress.</p>
+  <section class="hero">
 
-  </div>
+    <div class="max-badge">
 
-  <!-- TOP STATS -->
+      <span>
+        PERFORMANCE INTELLIGENCE
+      </span>
+
+    </div>
+
+    <h1>
+      Understand Your Discipline
+    </h1>
+
+    <p>
+      Track your focus consistency,
+      study momentum, and long-term
+      progression with advanced
+      VELYN analytics.
+    </p>
+
+  </section>
+
+  <!-- STATS -->
+
   <div class="stats-grid">
 
     <div class="analytics-card">
-      <p class="card-label">This Week</p>
-      <h2 id="weeklyHours">0h</h2>
-      <span>Total Focus Time</span>
+
+      <p class="card-label">
+        THIS WEEK
+      </p>
+
+      <h2 id="weeklyHours">
+        0h
+      </h2>
+
+      <span>
+        Total Focus Time
+      </span>
+
     </div>
 
     <div class="analytics-card">
-      <p class="card-label">Today</p>
-      <h2 id="todaySessions">0</h2>
-      <span>Sessions Completed</span>
+
+      <p class="card-label">
+        TODAY
+      </p>
+
+      <h2 id="todaySessions">
+        0
+      </h2>
+
+      <span>
+        Sessions Completed
+      </span>
+
     </div>
 
     <div class="analytics-card">
-      <p class="card-label">This Week</p>
-      <h2 id="weekSessions">0</h2>
-      <span>Sessions Completed</span>
+
+      <p class="card-label">
+        THIS WEEK
+      </p>
+
+      <h2 id="weekSessions">
+        0
+      </h2>
+
+      <span>
+        Sessions Completed
+      </span>
+
     </div>
 
     <div class="analytics-card">
-      <p class="card-label">Best Day</p>
-      <h2 id="bestDay">-</h2>
-      <span>Most Productive Day</span>
+
+      <p class="card-label">
+        BEST DAY
+      </p>
+
+      <h2 id="bestDay">
+        -
+      </h2>
+
+      <span>
+        Most Productive Day
+      </span>
+
     </div>
 
   </div>
 
   <!-- CHART -->
-  <div class="chart-section">
+
+  <section class="chart-section">
 
     <div class="section-header">
-      <h2>Weekly Focus</h2>
-      <p>Mon → Sun</p>
+
+      <h2>
+        Weekly Focus
+      </h2>
+
+      <p>
+        Mon → Sun
+      </p>
+
     </div>
 
     <div class="chart">
 
       <div class="chart-column">
-        <div class="bar" id="bar0"></div>
-        <span>Mon</span>
+
+        <div
+          class="bar"
+          id="bar0"
+        ></div>
+
+        <span>
+          Mon
+        </span>
+
       </div>
 
       <div class="chart-column">
-        <div class="bar" id="bar1"></div>
-        <span>Tue</span>
+
+        <div
+          class="bar"
+          id="bar1"
+        ></div>
+
+        <span>
+          Tue
+        </span>
+
       </div>
 
       <div class="chart-column">
-        <div class="bar" id="bar2"></div>
-        <span>Wed</span>
+
+        <div
+          class="bar"
+          id="bar2"
+        ></div>
+
+        <span>
+          Wed
+        </span>
+
       </div>
 
       <div class="chart-column">
-        <div class="bar" id="bar3"></div>
-        <span>Thu</span>
+
+        <div
+          class="bar"
+          id="bar3"
+        ></div>
+
+        <span>
+          Thu
+        </span>
+
       </div>
 
       <div class="chart-column">
-        <div class="bar" id="bar4"></div>
-        <span>Fri</span>
+
+        <div
+          class="bar"
+          id="bar4"
+        ></div>
+
+        <span>
+          Fri
+        </span>
+
       </div>
 
       <div class="chart-column">
-        <div class="bar" id="bar5"></div>
-        <span>Sat</span>
+
+        <div
+          class="bar"
+          id="bar5"
+        ></div>
+
+        <span>
+          Sat
+        </span>
+
       </div>
 
       <div class="chart-column">
-        <div class="bar" id="bar6"></div>
-        <span>Sun</span>
+
+        <div
+          class="bar"
+          id="bar6"
+        ></div>
+
+        <span>
+          Sun
+        </span>
+
       </div>
 
     </div>
 
-  </div>
+  </section>
 
   <!-- OVERVIEW -->
+
   <div class="overview-grid">
 
     <div class="overview-card">
-      <p>All Time Sessions</p>
-      <h2 id="allTimeSessions">0</h2>
+
+      <p>
+        All Time Sessions
+      </p>
+
+      <h2 id="allTimeSessions">
+        0
+      </h2>
+
     </div>
 
     <div class="overview-card">
-      <p>Current Streak</p>
-      <h2 id="currentStreak">0</h2>
+
+      <p>
+        Current Streak
+      </p>
+
+      <h2 id="currentStreak">
+        0
+      </h2>
+
     </div>
 
     <div class="overview-card">
-      <p>Total XP</p>
-      <h2 id="totalXP">0</h2>
+
+      <p>
+        Total XP
+      </p>
+
+      <h2 id="totalXP">
+        0
+      </h2>
+
     </div>
 
   </div>
 
-  <!-- EMPTY STATE -->
-  <div class="empty-state" id="emptyState" style="display:none;">
+  <!-- MAX ANALYTICS -->
 
-    <h3>No analytics yet</h3>
+  <section class="max-section">
+
+    <div class="max-wrapper locked">
+
+      <!-- LOCK OVERLAY -->
+
+      <div class="lock-overlay">
+
+        <h3>
+          Unlock VELYN MAX
+        </h3>
+
+        <p>
+          Access heatmaps,
+          advanced consistency insights,
+          momentum intelligence,
+          and deeper performance tracking.
+        </p>
+
+        <a
+          href="#"
+          class="upgrade-btn"
+        >
+          Upgrade to MAX
+        </a>
+
+      </div>
+
+      <!-- CONTENT -->
+
+      <div class="locked-content">
+
+        <div class="max-header">
+
+          <h2>
+            Advanced Insights
+          </h2>
+
+          <div class="max-pill">
+            MAX
+          </div>
+
+        </div>
+
+        <div class="max-grid">
+
+          <!-- HEATMAP -->
+
+          <div class="max-card">
+
+            <h3>
+              Discipline Heatmap
+            </h3>
+
+            <p>
+              Visualize your long-term
+              focus consistency and
+              daily discipline momentum.
+            </p>
+
+            <div class="heatmap-grid">
+
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heat-cell"></div>
+
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+              <div class="heatmap-cell"></div>
+
+            </div>
+
+          </div>
+
+          <!-- CONSISTENCY -->
+
+          <div class="max-card">
+
+            <h3>
+              Consistency Score
+            </h3>
+
+            <p>
+              Measure long-term focus
+              consistency and identify
+              discipline trends.
+            </p>
+
+            <h2
+              class="insight-value"
+              id="consistencyScore"
+            >
+              92%
+            </h2>
+
+          </div>
+
+          <!-- PEAK DAY -->
+
+          <div class="max-card">
+
+            <h3>
+              Peak Focus Day
+            </h3>
+
+            <p>
+              Discover when your focus
+              performance is strongest.
+            </p>
+
+            <h2
+              class="insight-value"
+              id="peakFocusDay"
+            >
+              Tuesday
+            </h2>
+
+          </div>
+
+          <!-- MOMENTUM -->
+
+          <div class="max-card">
+
+            <h3>
+              Momentum Trend
+            </h3>
+
+            <p>
+              Analyze whether your
+              consistency is improving
+              week after week.
+            </p>
+
+            <h2
+              class="insight-value"
+              id="momentumTrend"
+            >
+              Rising
+            </h2>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- EMPTY STATE -->
+
+  <div
+    class="empty-state"
+    id="emptyState"
+    style="display:none;"
+  >
+
+    <h3>
+      No analytics yet
+    </h3>
 
     <p>
       Complete your first focus session
       to unlock progress tracking.
     </p>
 
-    <a href="focus.html" class="focus-btn">
+    <a
+      href="focus.html"
+      class="focus-btn"
+    >
       Start Focusing
     </a>
 
   </div>
 
   <!-- SUPABASE -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- JS -->
+
   <script src="JS/analytics.js"></script>
 
 </body>

@@ -14,10 +14,84 @@
   font-family: "Inter", Arial, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
+
   background: var(--bg);
+
   color: var(--text);
+
   min-height: 100vh;
+
+  overflow-x: hidden;
+
+  position: relative;
+}
+
+/* =======================
+   SCROLLBAR
+======================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0c10;
+}
+
+::-webkit-scrollbar-thumb {
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--primary),
+      var(--secondary)
+    );
+
+  border-radius: 999px;
+}
+
+/* =======================
+   BACKGROUND GLOWS
+======================= */
+
+.bg-glow {
+
+  position: fixed;
+
+  border-radius: 50%;
+
+  filter: blur(120px);
+
+  z-index: -1;
+
+  opacity: 0.22;
+}
+
+.glow-1 {
+
+  width: 420px;
+  height: 420px;
+
+  background: var(--primary);
+
+  top: -120px;
+  left: -100px;
+}
+
+.glow-2 {
+
+  width: 420px;
+  height: 420px;
+
+  background: var(--secondary);
+
+  bottom: -140px;
+  right: -120px;
 }
 
 /* =======================
@@ -26,18 +100,53 @@ body {
 
 .top-bar {
 
+  width: 100%;
+
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
 
-  padding: 20px 40px;
+  padding: 24px 40px;
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 40;
+
+  backdrop-filter: blur(18px);
+
+  background:
+    rgba(13,14,18,0.65);
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.04);
+}
+
+.logo-link {
+
+  text-decoration: none;
 }
 
 .nav-logo {
-  height: 28px;
+
+  height: 30px;
+
+  opacity: 0.95;
+
+  transition: 0.3s ease;
 }
 
-/* BACK BUTTON */
+.nav-logo:hover {
+
+  transform: scale(1.03);
+}
+
+/* =======================
+   BACK BUTTON
+======================= */
 
 .back-btn {
 
@@ -45,18 +154,21 @@ body {
 
   color: rgba(255,255,255,0.88);
 
-  padding: 10px 16px;
+  padding: 12px 18px;
 
-  border-radius: 14px;
+  border-radius: 16px;
 
-  background: rgba(255,255,255,0.03);
+  background:
+    rgba(255,255,255,0.03);
 
-  border: 1px solid rgba(255,255,255,0.05);
+  border:
+    1px solid rgba(255,255,255,0.05);
 
   transition: all 0.25s ease;
 
-  font-weight: 500;
-  font-size: 15px;
+  font-weight: 600;
+
+  font-size: 14px;
 
   backdrop-filter: blur(14px);
 }
@@ -67,52 +179,81 @@ body {
 
   color: white;
 
-  border-color: rgba(74,108,255,0.35);
+  border-color:
+    rgba(74,108,255,0.35);
 
-  background: rgba(74,108,255,0.10);
+  background:
+    rgba(74,108,255,0.10);
 
   box-shadow:
     0 10px 25px rgba(74,108,255,0.12);
 }
 
 /* =======================
-   PROFILE
+   PROFILE WRAPPER
+======================= */
+
+.profile-wrapper {
+
+  width: 100%;
+
+  padding:
+    50px 20px 80px;
+}
+
+/* =======================
+   PROFILE CONTAINER
 ======================= */
 
 .profile-container {
 
   width: 100%;
-  max-width: 850px;
 
-  margin: 50px auto;
+  max-width: 920px;
 
-  padding: 0 20px;
-
-  text-align: center;
+  margin: auto;
 }
 
-/* AVATAR */
+/* =======================
+   PROFILE TOP
+======================= */
+
+.profile-top {
+
+  text-align: center;
+
+  margin-bottom: 50px;
+}
+
+/* =======================
+   AVATAR
+======================= */
 
 .avatar {
 
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
 
-  margin: 0 auto 18px;
+  margin:
+    0 auto 20px;
 
   border-radius: 50%;
 
-  background: linear-gradient(
-    135deg,
-    var(--primary),
-    var(--secondary)
-  );
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--secondary)
+    );
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
-  font-size: 42px;
+  font-size: 46px;
+
   font-weight: 700;
 
   position: relative;
@@ -120,7 +261,7 @@ body {
   overflow: hidden;
 
   box-shadow:
-    0 20px 50px rgba(74,108,255,0.25);
+    0 25px 60px rgba(74,108,255,0.24);
 }
 
 /* REAL IMAGE */
@@ -135,21 +276,24 @@ body {
   display: none;
 }
 
-/* UPLOAD BUTTON */
+/* =======================
+   BUTTON
+======================= */
 
 .upload-btn {
 
-  margin-bottom: 28px;
+  border:
+    1px solid rgba(255,255,255,0.06);
 
-  border: 1px solid rgba(255,255,255,0.06);
+  background:
+    rgba(255,255,255,0.03);
 
-  background: rgba(255,255,255,0.03);
+  color:
+    rgba(255,255,255,0.88);
 
-  color: rgba(255,255,255,0.88);
+  padding: 12px 18px;
 
-  padding: 10px 16px;
-
-  border-radius: 14px;
+  border-radius: 16px;
 
   cursor: pointer;
 
@@ -158,102 +302,153 @@ body {
   backdrop-filter: blur(14px);
 
   font-size: 14px;
-  font-weight: 500;
+
+  font-weight: 600;
 }
 
 .upload-btn:hover {
 
   transform: translateY(-2px);
 
-  border-color: rgba(74,108,255,0.35);
+  border-color:
+    rgba(74,108,255,0.35);
 
-  background: rgba(74,108,255,0.10);
+  background:
+    rgba(74,108,255,0.10);
 
   color: white;
 }
 
-/* USERNAME */
+/* =======================
+   USERNAME
+======================= */
 
 #profileUsername {
 
-  font-size: 42px;
+  font-size: 48px;
+
+  margin-top: 28px;
 
   margin-bottom: 10px;
 
-  background: linear-gradient(
-    90deg,
-    var(--primary),
-    var(--secondary)
-  );
+  letter-spacing: -1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--primary),
+      var(--secondary)
+    );
 
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
 }
 
-/* JOIN DATE */
+/* =======================
+   JOIN DATE
+======================= */
 
 .joined-text {
 
   color: var(--muted);
 
-  margin-bottom: 30px;
+  font-size: 15px;
 }
 
-/* BIO */
+/* =======================
+   SECTION TITLE
+======================= */
+
+.section-title {
+
+  margin-bottom: 22px;
+}
+
+.section-title h3 {
+
+  font-size: 24px;
+
+  margin-bottom: 8px;
+}
+
+.section-title p {
+
+  color: var(--muted);
+
+  line-height: 1.7;
+}
+
+/* =======================
+   BIO SECTION
+======================= */
+
+.bio-section {
+
+  margin-bottom: 50px;
+}
+
+/* =======================
+   BIO BOX
+======================= */
 
 .bio-box {
 
-  max-width: 550px;
+  padding: 24px;
 
-  margin: 0 auto 45px;
+  border-radius: 24px;
 
-  padding: 22px;
+  background:
+    rgba(255,255,255,0.03);
 
-  border-radius: 18px;
-
-  background: rgba(255,255,255,0.03);
-
-  border: 1px solid rgba(255,255,255,0.05);
+  border:
+    1px solid rgba(255,255,255,0.05);
 
   backdrop-filter: blur(14px);
 }
 
-/* BIO INPUT */
+/* =======================
+   BIO INPUT
+======================= */
 
 #profileBio {
 
   width: 100%;
 
-  min-height: 120px;
+  min-height: 130px;
 
   resize: none;
 
-  border: 1px solid rgba(255,255,255,0.05);
+  border:
+    1px solid rgba(255,255,255,0.05);
 
-  background: rgba(255,255,255,0.03);
+  background:
+    rgba(255,255,255,0.03);
 
   color: white;
 
-  border-radius: 14px;
+  border-radius: 18px;
 
-  padding: 16px;
+  padding: 18px;
 
   font-size: 15px;
 
-  line-height: 1.6;
+  line-height: 1.7;
 
   outline: none;
 
   transition: 0.25s ease;
 
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 #profileBio:focus {
 
-  border-color: rgba(74,108,255,0.35);
+  border-color:
+    rgba(74,108,255,0.35);
 
-  background: rgba(74,108,255,0.04);
+  background:
+    rgba(74,108,255,0.04);
 
   box-shadow:
     0 0 0 4px rgba(74,108,255,0.08);
@@ -261,11 +456,43 @@ body {
 
 #profileBio::placeholder {
 
-  color: rgba(255,255,255,0.35);
+  color:
+    rgba(255,255,255,0.35);
 }
 
 /* =======================
-   STATS
+   BIO BOTTOM
+======================= */
+
+.bio-bottom {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.bio-limit {
+
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+/* =======================
+   STATS SECTION
+======================= */
+
+.stats-section {
+
+  margin-bottom: 30px;
+}
+
+/* =======================
+   STATS GRID
 ======================= */
 
 .profile-stats {
@@ -273,29 +500,40 @@ body {
   display: grid;
 
   grid-template-columns:
-    repeat(auto-fit, minmax(170px, 1fr));
+    repeat(auto-fit, minmax(180px, 1fr));
 
-  gap: 20px;
+  gap: 22px;
 }
+
+/* =======================
+   PROFILE CARD
+======================= */
 
 .profile-card {
 
-  background: var(--card);
+  background:
+    rgba(255,255,255,0.03);
 
-  padding: 30px 20px;
+  padding: 34px 20px;
 
-  border-radius: 18px;
+  border-radius: 24px;
 
-  border: 1px solid rgba(255,255,255,0.05);
+  border:
+    1px solid rgba(255,255,255,0.05);
 
   transition: 0.25s ease;
+
+  backdrop-filter: blur(14px);
+
+  text-align: center;
 }
 
 .profile-card:hover {
 
   transform: translateY(-4px);
 
-  border-color: rgba(74,108,255,0.2);
+  border-color:
+    rgba(74,108,255,0.2);
 
   box-shadow:
     0 10px 30px rgba(74,108,255,0.08);
@@ -303,17 +541,19 @@ body {
 
 .profile-card h2 {
 
-  font-size: 34px;
+  font-size: 38px;
 
   margin-bottom: 10px;
 
-  background: linear-gradient(
-    90deg,
-    var(--primary),
-    var(--secondary)
-  );
+  background:
+    linear-gradient(
+      90deg,
+      var(--primary),
+      var(--secondary)
+    );
 
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
 }
 
@@ -322,6 +562,24 @@ body {
   color: var(--muted);
 
   font-size: 15px;
+}
+
+/* =======================
+   TABLET
+======================= */
+
+@media (max-width: 900px) {
+
+  #profileUsername {
+
+    font-size: 38px;
+  }
+
+  .profile-stats {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
 }
 
 /* =======================
@@ -336,23 +594,47 @@ body {
 
     flex-direction: column;
 
-    gap: 20px;
+    gap: 18px;
+  }
+
+  .profile-wrapper {
+
+    padding:
+      30px 16px 60px;
   }
 
   #profileUsername {
+
     font-size: 32px;
   }
 
   .avatar {
 
-    width: 95px;
-    height: 95px;
+    width: 100px;
+    height: 100px;
 
-    font-size: 34px;
+    font-size: 36px;
   }
 
   .profile-card h2 {
-    font-size: 28px;
+
+    font-size: 30px;
   }
 
+  .bio-bottom {
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .upload-btn {
+
+    width: 100%;
+  }
+
+  .profile-stats {
+
+    grid-template-columns: 1fr;
+  }
 }

@@ -1,42 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | VELYN</title>
 
-  <link rel="stylesheet" href="CSS/auth.css">
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    VELYN — Login
+  </title>
+
+  <meta
+    name="description"
+    content="Login to VELYN and continue building discipline through focus and consistency."
+  >
+
+  <!-- GOOGLE FONT -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="CSS/auth.css"
+  >
+
 </head>
 
 <body>
 
-  <div class="auth-container">
+  <!-- BACKGROUND -->
 
-    <img src="Images/VELYN Logos-03.png" class="logo">
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
 
-    <h1 id="formTitle">Welcome back</h1>
-    <p id="formSubtitle">Login to continue your focus journey</p>
+  <!-- AUTH WRAPPER -->
 
-    <form id="authForm">
+  <div class="auth-wrapper">
 
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Password" required>
+    <!-- LEFT SIDE -->
 
-      <button type="submit" class="auth-btn">Login</button>
+    <div class="auth-left">
 
-    </form>
+      <!-- LOGO -->
 
-    <p class="switch">
-      Don't have an account?
-      <span id="toggleAuth">Sign up</span>
-    </p>
+      <a
+        href="index.html"
+        class="logo-link"
+      >
+
+        <img
+          src="Images/VELYN Logos-03.png"
+          class="logo"
+          alt="VELYN Logo"
+        >
+
+      </a>
+
+      <!-- BADGE -->
+
+      <div class="hero-badge">
+
+        Discipline • Focus • Consistency
+
+      </div>
+
+      <!-- HERO TEXT -->
+
+      <h1>
+
+        Build discipline
+        one session
+        at a time.
+
+      </h1>
+
+      <p>
+
+        Track focus sessions,
+        build streaks,
+        earn XP,
+        and become more consistent every day.
+
+      </p>
+
+      <!-- FEATURES -->
+
+      <div class="auth-features">
+
+        <div class="auth-feature">
+
+          <span>
+            🔥
+          </span>
+
+          <p>
+            Daily streak tracking
+          </p>
+
+        </div>
+
+        <div class="auth-feature">
+
+          <span>
+            ⚡
+          </span>
+
+          <p>
+            XP & progression system
+          </p>
+
+        </div>
+
+        <div class="auth-feature">
+
+          <span>
+            🎯
+          </span>
+
+          <p>
+            Deep focus sessions
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="auth-right">
+
+      <div class="auth-container">
+
+        <!-- MOBILE LOGO -->
+
+        <img
+          src="Images/VELYN Logos-03.png"
+          class="mobile-logo"
+          alt="VELYN Logo"
+        >
+
+        <!-- TOP -->
+
+        <div class="auth-top">
+
+          <h1 id="formTitle">
+            Welcome back
+          </h1>
+
+          <p id="formSubtitle">
+
+            Login to continue your focus journey
+
+          </p>
+
+        </div>
+
+        <!-- FORM -->
+
+        <form id="authForm">
+
+          <!-- EMAIL -->
+
+          <div class="input-group">
+
+            <label>
+              Email
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              required
+            >
+
+          </div>
+
+          <!-- PASSWORD -->
+
+          <div class="input-group">
+
+            <label>
+              Password
+            </label>
+
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+              required
+            >
+
+          </div>
+
+          <!-- BUTTON -->
+
+          <button
+            type="submit"
+            class="auth-btn"
+          >
+
+            Login
+
+          </button>
+
+        </form>
+
+        <!-- SWITCH -->
+
+        <p class="switch">
+
+          Don't have an account?
+
+          <span id="toggleAuth">
+
+            Sign up
+
+          </span>
+
+        </p>
+
+        <!-- TERMS -->
+
+        <p class="terms">
+
+          By continuing,
+          you agree to the VELYN
+          Terms & Privacy Policy.
+
+        </p>
+
+      </div>
+
+    </div>
 
   </div>
 
   <!-- SUPABASE -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- JS -->
+
   <script src="JS/auth.js"></script>
 
 </body>

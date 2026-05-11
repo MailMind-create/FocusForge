@@ -1,72 +1,429 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>Focus Session</title>
 
   <link rel="stylesheet" href="CSS/focus.css">
+
 </head>
 
 <body>
 
+  <!-- BACKGROUND GLOWS -->
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
   <!-- TOP BAR -->
+
   <div class="top-bar">
-    <img src="Images/VELYN Logos-03.png" class="logo">
-    <a href="app.html" class="exit-btn">Exit</a>
+
+    <img
+      src="Images/VELYN Logos-03.png"
+      class="logo"
+    >
+
+    <a
+      href="app.html"
+      class="exit-btn"
+    >
+      Exit
+    </a>
+
   </div>
 
   <!-- MAIN -->
+
   <div class="focus-container">
 
-    <!-- TASK -->
-    <input
-      type="text"
-      class="task-input"
-      placeholder="What are you committing to?"
-    >
+    <!-- FOCUS CARD -->
 
-    <!-- OPTIONAL DAILY GOAL -->
-    <select id="goalSelect" class="goal-select">
+    <div class="focus-card">
 
-      <option value="">
-        Optional Daily Goal
-      </option>
+      <!-- TASK -->
 
-    </select>
+      <input
+        type="text"
+        class="task-input"
+        id="taskInput"
+        placeholder="What are you committing to?"
+      >
 
-    <!-- TIME SELECT -->
-    <div class="time-select">
-      <button type="button" data-time="900">15m</button>
-      <button type="button" data-time="1500" class="active">25m</button>
-      <button type="button" data-time="2700">45m</button>
-    </div>
+      <!-- DAILY GOAL -->
 
-    <!-- TIMER -->
-    <div class="timer" id="timer">25:00</div>
+      <select
+        id="goalSelect"
+        class="goal-select"
+      >
 
-    <!-- START / END BUTTON -->
-    <button
-      type="button"
-      class="main-btn"
-      id="mainBtn"
-    >
-      Start Session
-    </button>
+        <option value="">
+          Optional Daily Goal
+        </option>
 
-    <!-- END STATE -->
-    <div class="end-state" id="endState">
+      </select>
 
-      <p>Did you complete your task?</p>
+      <!-- MAX EXAM GOAL -->
 
-      <div class="end-buttons">
+      <div
+        class="max-goal-wrapper"
+        id="examGoalWrapper"
+      >
 
-        <button type="button" class="yes">
-          Yes
+        <div class="max-goal-label">
+
+          <span class="max-badge">
+            VELYN MAX
+          </span>
+
+        </div>
+
+        <select
+          id="examGoalSelect"
+          class="exam-goal-select"
+        >
+
+          <option value="">
+            Choose Exam Goal
+          </option>
+
+        </select>
+
+      </div>
+
+      <!-- ======================
+           MAX DEEP SESSION
+      ======================= -->
+
+      <div
+        class="deep-session-toggle"
+        id="deepSessionToggle"
+      >
+
+        <div class="deep-toggle-left">
+
+          <span class="max-badge">
+            VELYN MAX
+          </span>
+
+          <p>
+            Enable Deep Session
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          id="deepToggleBtn"
+          class="deep-toggle-btn"
+        >
+          Enable
         </button>
 
-        <button type="button" class="no">
-          No
+      </div>
+
+      <!-- DEEP SESSION CONTENT -->
+
+      <div
+        class="deep-session-wrapper hidden"
+        id="deepSessionWrapper"
+      >
+
+        <div class="deep-session-top">
+
+          <span class="max-badge">
+            DEEP SESSION
+          </span>
+
+          <p>
+            Advanced Focus Tracking
+          </p>
+
+        </div>
+
+        <!-- CATEGORY -->
+
+        <select
+          id="deepType"
+          class="deep-select"
+        >
+
+          <option value="" disabled selected>
+            Choose Session Category
+          </option>
+
+          <option value="Studying">
+            Studying
+          </option>
+
+          <option value="Coding">
+            Coding
+          </option>
+
+          <option value="Writing">
+            Writing
+          </option>
+
+          <option value="Reading">
+            Reading
+          </option>
+
+          <option value="Work">
+            Work
+          </option>
+
+          <option value="Creative">
+            Creative
+          </option>
+
+        </select>
+
+        <!-- INTENTION -->
+
+        <textarea
+          id="sessionIntention"
+          class="deep-textarea"
+          placeholder="What do you want to accomplish during this session?"
+        ></textarea>
+
+      </div>
+
+      <!-- TIME SELECT -->
+
+      <div class="time-select">
+
+        <button
+          type="button"
+          data-time="900"
+        >
+          15m
+        </button>
+
+        <button
+          type="button"
+          data-time="1500"
+          class="active"
+        >
+          25m
+        </button>
+
+        <button
+          type="button"
+          data-time="2700"
+        >
+          45m
+        </button>
+
+      </div>
+
+      <!-- TIMER -->
+
+      <div
+        class="timer"
+        id="timer"
+      >
+        25:00
+      </div>
+
+      <!-- START BUTTON -->
+
+      <button
+        type="button"
+        class="main-btn"
+        id="mainBtn"
+      >
+        Start Session
+      </button>
+
+      <!-- END STATE -->
+
+      <div
+        class="end-state"
+        id="endState"
+      >
+
+        <p>
+          Did you complete your task?
+        </p>
+
+        <div class="end-buttons">
+
+          <button
+            type="button"
+            class="yes"
+          >
+            Yes
+          </button>
+
+          <button
+            type="button"
+            class="no"
+          >
+            No
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- ======================
+           DEEP SESSION REFLECTION
+      ======================= -->
+
+      <div
+        class="reflection-wrapper"
+        id="reflectionWrapper"
+      >
+
+        <div class="reflection-top">
+
+          <span class="max-badge">
+            SESSION REFLECTION
+          </span>
+
+          <p>
+            Analyze Your Focus
+          </p>
+
+        </div>
+
+        <!-- FOCUS -->
+
+        <div class="reflection-group">
+
+          <label>
+            Focus Rating
+          </label>
+
+          <select id="focusRating">
+
+            <option value="">
+              Select Rating
+            </option>
+
+            <option value="1">
+              1 - Very Distracted
+            </option>
+
+            <option value="2">
+              2 - Distracted
+            </option>
+
+            <option value="3">
+              3 - Decent
+            </option>
+
+            <option value="4">
+              4 - Focused
+            </option>
+
+            <option value="5">
+              5 - Deep Focus
+            </option>
+
+          </select>
+
+        </div>
+
+        <!-- ENERGY -->
+
+        <div class="reflection-group">
+
+          <label>
+            Energy Rating
+          </label>
+
+          <select id="energyRating">
+
+            <option value="">
+              Select Rating
+            </option>
+
+            <option value="1">
+              1 - Exhausted
+            </option>
+
+            <option value="2">
+              2 - Low
+            </option>
+
+            <option value="3">
+              3 - Normal
+            </option>
+
+            <option value="4">
+              4 - Energized
+            </option>
+
+            <option value="5">
+              5 - Peak Energy
+            </option>
+
+          </select>
+
+        </div>
+
+        <!-- DISTRACTIONS -->
+
+        <div class="reflection-group">
+
+          <label>
+            Distraction Level
+          </label>
+
+          <select id="distractionLevel">
+
+            <option value="">
+              Select Rating
+            </option>
+
+            <option value="1">
+              1 - No Distractions
+            </option>
+
+            <option value="2">
+              2 - Minor
+            </option>
+
+            <option value="3">
+              3 - Moderate
+            </option>
+
+            <option value="4">
+              4 - Distracting
+            </option>
+
+            <option value="5">
+              5 - Constant Distractions
+            </option>
+
+          </select>
+
+        </div>
+
+        <!-- REFLECTION -->
+
+        <textarea
+          id="reflectionInput"
+          class="reflection-textarea"
+          placeholder="How did the session feel? What went well or poorly?"
+        ></textarea>
+
+        <!-- SAVE BUTTON -->
+
+        <button
+          type="button"
+          id="saveReflectionBtn"
+          class="reflection-btn"
+        >
+          Complete Deep Session
         </button>
 
       </div>
@@ -75,7 +432,8 @@
 
   </div>
 
-  <!-- BOTTOM -->
+  <!-- BOTTOM BAR -->
+
   <div class="bottom-bar">
 
     <span id="streak">
@@ -97,7 +455,11 @@
   </div>
 
   <!-- POPUP -->
-  <div id="popup" class="popup">
+
+  <div
+    id="popup"
+    class="popup"
+  >
 
     <div class="popup-content">
 
@@ -115,9 +477,11 @@
   </div>
 
   <!-- CONFETTI -->
+
   <canvas id="confetti"></canvas>
 
   <!-- SCRIPTS -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="JS/timer.js"></script>

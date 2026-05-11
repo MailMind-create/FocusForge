@@ -4,83 +4,479 @@
 
   <meta charset="UTF-8">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <title>Settings</title>
+  <title>
+    VELYN — Settings
+  </title>
 
-  <link rel="stylesheet"
-        href="CSS/settings.css">
+  <meta
+    name="description"
+    content="Manage your VELYN account, subscription, and profile settings."
+  >
+
+  <!-- GOOGLE FONT -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="CSS/settings.css"
+  >
 
 </head>
 
 <body>
 
+  <!-- BACKGROUND -->
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
   <!-- TOP BAR -->
 
   <div class="top-bar">
 
-    <img src="Images/VELYN Logos-03.png"
-         class="nav-logo">
+    <!-- LOGO -->
 
-    <a href="app.html"
-       class="back-btn">
+    <a
+      href="app.html"
+      class="logo-link"
+    >
 
-      Back
+      <img
+        src="Images/VELYN Logos-03.png"
+        class="nav-logo"
+        alt="VELYN Logo"
+      >
+
+    </a>
+
+    <!-- BACK BUTTON -->
+
+    <a
+      href="app.html"
+      class="back-btn"
+    >
+
+      ← Dashboard
 
     </a>
 
   </div>
 
-  <!-- SETTINGS -->
+  <!-- PAGE -->
 
-  <div class="settings-container">
+  <div class="settings-wrapper">
 
-    <h1>
-      Profile Settings
-    </h1>
+    <div class="settings-container">
 
-    <p class="subtitle">
-      Customize your VELYN identity.
-    </p>
+      <!-- HERO -->
 
-    <!-- INFO BOX -->
+      <div class="settings-hero">
 
-    <div class="info-box">
+        <div class="hero-badge">
 
-      <p>
-        Complete your first focus session
-        to unlock profile customization.
-      </p>
+          Identity • Subscription • Account
+
+        </div>
+
+        <h1>
+
+          Settings
+
+        </h1>
+
+        <p class="subtitle">
+
+          Manage your VELYN account,
+          profile and subscription.
+
+        </p>
+
+      </div>
+
+      <!-- ACCOUNT SECTION -->
+
+      <div class="settings-section">
+
+        <div class="section-title">
+
+          <h2>
+
+            Account
+
+          </h2>
+
+          <p>
+
+            Basic account information and profile identity.
+
+          </p>
+
+        </div>
+
+        <div class="settings-card">
+
+          <!-- EMAIL -->
+
+          <div class="setting-item">
+
+            <div class="setting-info">
+
+              <h3>
+
+                Email
+
+              </h3>
+
+              <p>
+
+                Your connected account email.
+
+              </p>
+
+            </div>
+
+            <div class="email-box">
+
+              <input
+                type="email"
+                id="emailInput"
+                disabled
+              >
+
+            </div>
+
+          </div>
+
+          <!-- USERNAME -->
+
+          <div class="setting-item column-item">
+
+            <div class="setting-info">
+
+              <h3>
+
+                Username
+
+              </h3>
+
+              <p>
+
+                Visible on profiles and leaderboards.
+
+              </p>
+
+            </div>
+
+            <div class="input-group">
+
+              <input
+                type="text"
+                id="usernameInput"
+                placeholder="Choose a username"
+                maxlength="20"
+              >
+
+              <button id="saveBtn">
+
+                Save Username
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- SUBSCRIPTION -->
+
+      <div class="settings-section">
+
+        <div class="section-title">
+
+          <h2>
+
+            Subscription
+
+          </h2>
+
+          <p>
+
+            Upgrade your productivity system with VELYN MAX.
+
+          </p>
+
+        </div>
+
+        <div class="settings-card">
+
+          <!-- CURRENT PLAN -->
+
+          <div class="setting-item">
+
+            <div class="setting-info">
+
+              <h3>
+
+                Current Plan
+
+              </h3>
+
+              <p>
+
+                Your active VELYN subscription.
+
+              </p>
+
+            </div>
+
+            <div
+              class="plan-badge"
+              id="planBadge"
+            >
+
+              FREE
+
+            </div>
+
+          </div>
+
+          <!-- MAX -->
+
+          <div class="max-card">
+
+            <div class="max-top">
+
+              <div>
+
+                <h3>
+
+                  VELYN MAX
+
+                </h3>
+
+                <p>
+
+                  Unlock advanced analytics,
+                  planner tools,
+                  deep focus tracking,
+                  and premium progression systems.
+
+                </p>
+
+              </div>
+
+              <span class="max-pill">
+
+                PREMIUM
+
+              </span>
+
+            </div>
+
+            <div class="max-features">
+
+              <div class="max-feature">
+
+                ⚡ Deep Analytics
+
+              </div>
+
+              <div class="max-feature">
+
+                📈 Session History
+
+              </div>
+
+              <div class="max-feature">
+
+                🧠 Focus Reflection
+
+              </div>
+
+              <div class="max-feature">
+
+                📅 Planner System
+
+              </div>
+
+            </div>
+
+            <!-- BUTTONS -->
+
+            <div class="max-buttons">
+
+              <a
+                href="upgrade.html"
+                class="upgrade-link"
+              >
+
+                <button
+                  class="upgrade-btn"
+                  id="upgradeBtn"
+                >
+
+                  Upgrade to MAX
+
+                </button>
+
+              </a>
+
+              <button
+                class="manage-btn"
+                id="managePlanBtn"
+              >
+
+                Manage Subscription
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- PROFILE -->
+
+      <div class="settings-section">
+
+        <div class="section-title">
+
+          <h2>
+
+            Profile
+
+          </h2>
+
+          <p>
+
+            Personalize your public profile.
+
+          </p>
+
+        </div>
+
+        <div class="settings-card">
+
+          <div class="profile-actions">
+
+            <a
+              href="profile.html"
+              class="profile-link-btn"
+            >
+
+              Edit Profile
+
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- APP -->
+
+      <div class="settings-section">
+
+        <div class="section-title">
+
+          <h2>
+
+            App
+
+          </h2>
+
+          <p>
+
+            Session and account actions.
+
+          </p>
+
+        </div>
+
+        <div class="settings-card">
+
+          <button
+            class="logout-btn"
+            id="logoutBtn"
+          >
+
+            Logout
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- DANGER ZONE -->
+
+      <div class="settings-section">
+
+        <div class="danger-card">
+
+          <div class="section-title">
+
+            <h2>
+
+              Danger Zone
+
+            </h2>
+
+            <p>
+
+              Permanent account actions.
+
+            </p>
+
+          </div>
+
+          <button
+            class="danger-btn"
+            disabled
+          >
+
+            Delete Account (Coming Soon)
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- STATUS -->
+
+      <p id="statusText"></p>
 
     </div>
-
-    <!-- USERNAME -->
-
-    <div class="settings-card">
-
-      <label>
-        Username
-      </label>
-
-      <input
-        type="text"
-        id="usernameInput"
-        placeholder="Choose a username"
-        maxlength="20"
-      >
-
-      <button id="saveBtn">
-
-        Save Username
-
-      </button>
-
-    </div>
-
-    <!-- STATUS -->
-
-    <p id="statusText"></p>
 
   </div>
 

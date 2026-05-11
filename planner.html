@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    VELYN MAX — Planner
+  </title>
+
+  <meta
+    name="description"
+    content="VELYN MAX planner with exam countdowns, study targets, and long-term progress tracking."
+  >
+
+  <link
+    rel="stylesheet"
+    href="CSS/planner.css"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <!-- TOP BAR -->
+
+  <div class="top-bar">
+
+    <img
+      src="Images/VELYN Logos-03.png"
+      class="nav-logo"
+    >
+
+    <a
+      href="app.html"
+      class="back-btn"
+    >
+      ← Dashboard
+    </a>
+
+  </div>
+
+  <!-- HERO -->
+
+  <section class="planner-hero">
+
+    <div class="max-badge">
+
+      <img
+        src="Images/Max-Icon.svg"
+        alt="VELYN MAX"
+      >
+
+      <span>
+        VELYN MAX
+      </span>
+
+    </div>
+
+    <h1>
+      Plan smarter.
+      Stay ahead.
+    </h1>
+
+    <p>
+      Track exams, monitor long-term progress,
+      and turn study sessions into measurable preparation.
+    </p>
+
+  </section>
+
+  <!-- CREATE EXAM -->
+
+  <section class="planner-controls">
+
+    <div class="control-card">
+
+      <div class="control-top">
+
+        <div>
+
+          <p class="section-tag">
+            EXAM TRACKING
+          </p>
+
+          <h2>
+            Create a new exam goal
+          </h2>
+
+        </div>
+
+      </div>
+
+      <!-- FORM -->
+
+      <div class="exam-form">
+
+        <input
+          type="text"
+          id="examName"
+          placeholder="Exam name"
+        >
+
+        <input
+          type="date"
+          id="examDate"
+        >
+
+        <input
+          type="number"
+          id="targetHours"
+          placeholder="Target study hours"
+        >
+
+      </div>
+
+      <button
+        id="createExamBtn"
+        class="create-btn"
+      >
+        Create Exam Goal
+      </button>
+
+      <p
+        id="plannerStatus"
+        class="planner-status"
+      ></p>
+
+    </div>
+
+  </section>
+
+  <!-- ACTIVE EXAMS -->
+
+  <section class="planner-section">
+
+    <div class="section-top">
+
+      <p class="section-tag">
+        ACTIVE EXAMS
+      </p>
+
+      <h2>
+        Your planner
+      </h2>
+
+      <p>
+        Connected to your VELYN study ecosystem.
+      </p>
+
+    </div>
+
+    <!-- EXAM GRID -->
+
+    <div
+      class="exam-grid"
+      id="examGrid"
+    ></div>
+
+  </section>
+
+  <!-- ADVANCED INSIGHTS -->
+
+  <section class="insights-section">
+
+    <div class="section-top">
+
+      <p class="section-tag">
+        ADVANCED INSIGHTS
+      </p>
+
+      <h2>
+        Study momentum
+      </h2>
+
+      <p>
+        Your long-term consistency and preparation overview.
+      </p>
+
+    </div>
+
+    <div class="insights-grid">
+
+      <!-- CARD -->
+
+      <div class="insight-card">
+
+        <img
+          src="Images/Icons-Goals  Precision.png"
+          alt=""
+        >
+
+        <h3>
+          Exam Readiness
+        </h3>
+
+        <p>
+          Discover how close you are
+          to your study targets.
+        </p>
+
+        <div class="insight-value">
+          0%
+        </div>
+
+      </div>
+
+      <!-- CARD -->
+
+      <div class="insight-card">
+
+        <img
+          src="Images/Icons-Streak  Momentum.png"
+          alt=""
+        >
+
+        <h3>
+          Weekly Momentum
+        </h3>
+
+        <p>
+          Measure consistency across
+          all active exams.
+        </p>
+
+        <div class="insight-value">
+          0 Active
+        </div>
+
+      </div>
+
+      <!-- CARD -->
+
+      <div class="insight-card">
+
+        <img
+          src="Images/Icons-Time  Sessions.png"
+          alt=""
+        >
+
+        <h3>
+          Time Remaining
+        </h3>
+
+        <p>
+          Total days left until
+          your nearest deadline.
+        </p>
+
+        <div class="insight-value">
+          0 Days
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- EXAM CARD TEMPLATE -->
+
+  <template id="examCardTemplate">
+
+    <div class="exam-card">
+
+      <div class="exam-top">
+
+        <div>
+
+          <p class="exam-label">
+            EXAM
+          </p>
+
+          <h3 class="exam-title">
+            Biology Final
+          </h3>
+
+        </div>
+
+        <div class="countdown">
+          18 Days
+        </div>
+
+      </div>
+
+      <div class="progress-top">
+
+        <span class="study-hours">
+          0 / 40 Hours
+        </span>
+
+        <span class="study-percent">
+          0%
+        </span>
+
+      </div>
+
+      <div class="progress-bar">
+
+        <div class="progress-fill"></div>
+
+      </div>
+
+    </div>
+
+  </template>
+
+  <!-- SCRIPTS -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="JS/planner.js"></script>
+
+</body>
+</html>
