@@ -166,6 +166,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let examGoals = [];
 
+  let startTimestamp = null;
+
   // ======================
   // INIT
   // ======================
@@ -579,19 +581,34 @@ document.addEventListener("DOMContentLoaded", () => {
     mainBtn.textContent =
       "End Session";
 
-    interval =
-      setInterval(() => {
+    startTimestamp =
+  Date.now() - (
+    (selectedTime - time) * 1000
+  );
 
-        time--;
+interval =
+  setInterval(() => {
 
-        updateDisplay();
+    const elapsedSeconds =
+      Math.floor(
+        (Date.now() - startTimestamp) / 1000
+      );
 
-        if (time <= 0) {
+    time =
+      selectedTime - elapsedSeconds;
 
-          showEndState();
-        }
+    if (time < 0) {
+      time = 0;
+    }
 
-      }, 1000);
+    updateDisplay();
+
+    if (time <= 0) {
+
+      showEndState();
+    }
+
+  }, 1000);
   }
 
   function showEndState() {
@@ -1226,6 +1243,8 @@ console.log(
     clearInterval(interval);
 
     interval = null;
+
+    startTimestamp = null;
 
     isRunning = false;
 
