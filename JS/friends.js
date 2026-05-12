@@ -92,7 +92,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (error) {
 
-      console.error(error);
+      console.error(
+        "Search error:",
+        error
+      );
 
       return;
     }
@@ -124,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const user of users) {
 
       // ======================
-      // CHECK EXISTING REQUEST
+      // CHECK REQUESTS
       // ======================
 
       const {
@@ -236,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ======================
-    // BUTTONS
+    // ADD FRIEND BUTTONS
     // ======================
 
     document
@@ -267,14 +270,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ======================
-  // SEND REQUEST
+  // SEND FRIEND REQUEST
   // ======================
 
   async function sendFriendRequest(
     friendId
   ) {
 
-    const { error } =
+    const {
+      error
+    } =
       await supabase
         .from("friend_requests")
         .insert({
@@ -290,10 +295,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         });
 
-    if (error) {
-
-      console.error(error);
-    }
+    console.log(
+      "Send request error:",
+      error
+    );
   }
 
   // ======================
@@ -320,7 +325,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (error) {
 
-      console.error(error);
+      console.error(
+        "Load requests error:",
+        error
+      );
 
       return;
     }
@@ -425,7 +433,9 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     }
 
-    // ACCEPT
+    // ======================
+    // ACCEPT BUTTONS
+    // ======================
 
     document
       .querySelectorAll(
@@ -447,7 +457,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       });
 
-    // DECLINE
+    // ======================
+    // DECLINE BUTTONS
+    // ======================
 
     document
       .querySelectorAll(
@@ -478,46 +490,76 @@ document.addEventListener("DOMContentLoaded", () => {
     senderId
   ) {
 
+    console.log(
+      "Accepting request..."
+    );
+
     // ======================
-    // ADD FRIEND BOTH SIDES
+    // INSERT FRIEND BOTH SIDES
     // ======================
 
-    await supabase
-      .from("friends")
-      .insert([
+    const {
+      error: friendError
+    } =
+      await supabase
+        .from("friends")
+        .insert([
 
-        {
-          user_id:
-            currentUser.id,
+          {
+            user_id:
+              currentUser.id,
 
-          friend_id:
-            senderId
-        },
+            friend_id:
+              senderId
+          },
 
-        {
-          user_id:
-            senderId,
+          {
+            user_id:
+              senderId,
 
-          friend_id:
-            currentUser.id
-        }
+            friend_id:
+              currentUser.id
+          }
 
-      ]);
+        ]);
+
+    console.log(
+      "Friend insert error:",
+      friendError
+    );
 
     // ======================
     // UPDATE REQUEST
     // ======================
 
-    await supabase
-      .from("friend_requests")
-      .update({
-        status:
-          "accepted"
-      })
-      .eq(
-        "id",
-        requestId
+    const {
+      error: requestError
+    } =
+      await supabase
+        .from("friend_requests")
+        .update({
+          status:
+            "accepted"
+        })
+        .eq(
+          "id",
+          requestId
+        );
+
+    console.log(
+      "Request update error:",
+      requestError
+    );
+
+    if (
+      !friendError &&
+      !requestError
+    ) {
+
+      console.log(
+        "Friend added successfully"
       );
+    }
   }
 
   // ======================
@@ -528,13 +570,21 @@ document.addEventListener("DOMContentLoaded", () => {
     requestId
   ) {
 
-    await supabase
-      .from("friend_requests")
-      .delete()
-      .eq(
-        "id",
-        requestId
-      );
+    const {
+      error
+    } =
+      await supabase
+        .from("friend_requests")
+        .delete()
+        .eq(
+          "id",
+          requestId
+        );
+
+    console.log(
+      "Decline error:",
+      error
+    );
   }
 
   // ======================
@@ -545,13 +595,21 @@ document.addEventListener("DOMContentLoaded", () => {
     friendId
   ) {
 
-    await supabase
-      .from("friends")
-      .delete()
-      .or(`
-        and(user_id.eq.${currentUser.id},friend_id.eq.${friendId}),
-        and(user_id.eq.${friendId},friend_id.eq.${currentUser.id})
-      `);
+    const {
+      error
+    } =
+      await supabase
+        .from("friends")
+        .delete()
+        .or(`
+          and(user_id.eq.${currentUser.id},friend_id.eq.${friendId}),
+          and(user_id.eq.${friendId},friend_id.eq.${currentUser.id})
+        `);
+
+    console.log(
+      "Remove friend error:",
+      error
+    );
   }
 
   // ======================
@@ -574,7 +632,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (error) {
 
-      console.error(error);
+      console.error(
+        "Load friends error:",
+        error
+      );
 
       return;
     }
