@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://eztflaqhcamoftvosegx.supabase.co";
 
   const SUPABASE_ANON_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV6dGZsYXFoY2Ftb2Z0dm9zZWd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzUzNDAsImV4cCI6MjA5MzQxMTM0MH0.beBy1rIxqy0Y70IkB8-tZCs9RlZcMFn4bPaYL_Rqw14";
+    "YOUR_ANON_KEY";
 
   const supabase =
     window.supabase.createClient(
@@ -31,6 +31,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const friendsList =
     document.getElementById("friendsList");
+
+  const requestsList =
+    document.getElementById("requestsList");
+
+  const friendsCount =
+    document.getElementById("friendsCount");
+
+  const requestCount =
+    document.getElementById("requestCount");
+
+  const friendsEmpty =
+    document.getElementById("friendsEmpty");
+
+  const requestsEmpty =
+    document.getElementById("requestsEmpty");
 
   let currentUser = null;
 
@@ -148,14 +163,10 @@ document.addEventListener("DOMContentLoaded", () => {
         await supabase
           .from("friends")
           .select("*")
-          .eq(
-            "user_id",
-            currentUser.id
-          )
-          .eq(
-            "friend_id",
-            user.id
-          )
+          .or(`
+            and(user_id.eq.${currentUser.id},friend_id.eq.${user.id}),
+            and(user_id.eq.${user.id},friend_id.eq.${currentUser.id})
+          `)
           .maybeSingle();
 
       let buttonText =
@@ -238,7 +249,9 @@ document.addEventListener("DOMContentLoaded", () => {
       results.appendChild(card);
     }
 
-    // ADD BUTTONS
+    // ======================
+    // ADD FRIEND BUTTONS
+    // ======================
 
     document
       .querySelectorAll(
@@ -305,6 +318,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadRequests() {
 
+    requestsList.innerHTML = "";
+
     const {
       data,
       error
@@ -331,27 +346,22 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    requestCount.textContent =
+      data?.length || 0;
+
     if (
       !data ||
       data.length === 0
     ) {
+
+      requestsEmpty.style.display =
+        "flex";
+
       return;
     }
 
-    const title =
-      document.createElement(
-        "h2"
-      );
-
-    title.className =
-      "section-title";
-
-    title.textContent =
-      "Friend Requests";
-
-    friendsList.appendChild(
-      title
-    );
+    requestsEmpty.style.display =
+      "none";
 
     for (const request of data) {
 
@@ -426,12 +436,12 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
 
-      friendsList.appendChild(
+      requestsList.appendChild(
         card
       );
     }
 
-    // ACCEPT
+    // ACCEPT BUTTONS
 
     document
       .querySelectorAll(
@@ -453,7 +463,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       });
 
-    // DECLINE
+    // DECLINE BUTTONS
 
     document
       .querySelectorAll(
@@ -488,22 +498,32 @@ document.addEventListener("DOMContentLoaded", () => {
       "Accepting request..."
     );
 
-    // ADD CURRENT USER FRIEND
+    // INSERT BOTH SIDES
 
     const {
       error: insertError
     } =
       await supabase
         .from("friends")
-        .insert({
+        .insert([
 
-          user_id:
-            currentUser.id,
+          {
+            user_id:
+              currentUser.id,
 
-          friend_id:
-            senderId
+            friend_id:
+              senderId
+          },
 
-        });
+          {
+            user_id:
+              senderId,
+
+            friend_id:
+              currentUser.id
+          }
+
+        ]);
 
     console.log(
       "Friend insert error:",
@@ -571,14 +591,10 @@ document.addEventListener("DOMContentLoaded", () => {
       await supabase
         .from("friends")
         .delete()
-        .eq(
-          "user_id",
-          currentUser.id
-        )
-        .eq(
-          "friend_id",
-          friendId
-        );
+        .or(`
+          and(user_id.eq.${currentUser.id},friend_id.eq.${friendId}),
+          and(user_id.eq.${friendId},friend_id.eq.${currentUser.id})
+        `);
 
     console.log(
       "Remove friend error:",
@@ -591,6 +607,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // ======================
 
   async function loadFriends() {
+
+    friendsList.innerHTML = "";
 
     const {
       data,
@@ -614,19 +632,22 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    friendsCount.textContent =
+      data?.length || 0;
+
     if (
       !data ||
       data.length === 0
     ) {
 
-      friendsList.innerHTML += `
-        <p class="empty-text">
-          No friends yet.
-        </p>
-      `;
+      friendsEmpty.style.display =
+        "flex";
 
       return;
     }
+
+    friendsEmpty.style.display =
+      "none";
 
     for (const friend of data) {
 
