@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://eztflaqhcamoftvosegx.supabase.co";
 
   const SUPABASE_ANON_KEY =
-    "YOUR_ANON_KEY";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV6dGZsYXFoY2Ftb2Z0dm9zZWd4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzUzNDAsImV4cCI6MjA5MzQxMTM0MH0.beBy1rIxqy0Y70IkB8-tZCs9RlZcMFn4bPaYL_Rqw14";
 
   const supabase =
     window.supabase.createClient(
