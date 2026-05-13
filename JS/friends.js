@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ======================
-  // RENDER SEARCH
+  // RENDER SEARCH RESULTS
   // ======================
 
   async function renderSearchResults(users) {
@@ -126,9 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (const user of users) {
 
-      // ======================
       // CHECK REQUESTS
-      // ======================
 
       const {
         data: request
@@ -142,9 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
           `)
           .maybeSingle();
 
-      // ======================
       // CHECK FRIENDS
-      // ======================
 
       const {
         data: friendship
@@ -152,10 +148,14 @@ document.addEventListener("DOMContentLoaded", () => {
         await supabase
           .from("friends")
           .select("*")
-          .or(`
-            and(user_id.eq.${currentUser.id},friend_id.eq.${user.id}),
-            and(user_id.eq.${user.id},friend_id.eq.${currentUser.id})
-          `)
+          .eq(
+            "user_id",
+            currentUser.id
+          )
+          .eq(
+            "friend_id",
+            user.id
+          )
           .maybeSingle();
 
       let buttonText =
@@ -238,9 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
       results.appendChild(card);
     }
 
-    // ======================
-    // ADD FRIEND BUTTONS
-    // ======================
+    // ADD BUTTONS
 
     document
       .querySelectorAll(
@@ -433,9 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     }
 
-    // ======================
-    // ACCEPT BUTTONS
-    // ======================
+    // ACCEPT
 
     document
       .querySelectorAll(
@@ -457,9 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       });
 
-    // ======================
-    // DECLINE BUTTONS
-    // ======================
+    // DECLINE
 
     document
       .querySelectorAll(
@@ -494,43 +488,29 @@ document.addEventListener("DOMContentLoaded", () => {
       "Accepting request..."
     );
 
-    // ======================
-    // INSERT FRIEND BOTH SIDES
-    // ======================
+    // ADD CURRENT USER FRIEND
 
     const {
-      error: friendError
+      error: insertError
     } =
       await supabase
         .from("friends")
-        .insert([
+        .insert({
 
-          {
-            user_id:
-              currentUser.id,
+          user_id:
+            currentUser.id,
 
-            friend_id:
-              senderId
-          },
+          friend_id:
+            senderId
 
-          {
-            user_id:
-              senderId,
-
-            friend_id:
-              currentUser.id
-          }
-
-        ]);
+        });
 
     console.log(
       "Friend insert error:",
-      friendError
+      insertError
     );
 
-    // ======================
     // UPDATE REQUEST
-    // ======================
 
     const {
       error: requestError
@@ -550,16 +530,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "Request update error:",
       requestError
     );
-
-    if (
-      !friendError &&
-      !requestError
-    ) {
-
-      console.log(
-        "Friend added successfully"
-      );
-    }
   }
 
   // ======================
@@ -601,10 +571,14 @@ document.addEventListener("DOMContentLoaded", () => {
       await supabase
         .from("friends")
         .delete()
-        .or(`
-          and(user_id.eq.${currentUser.id},friend_id.eq.${friendId}),
-          and(user_id.eq.${friendId},friend_id.eq.${currentUser.id})
-        `);
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+        .eq(
+          "friend_id",
+          friendId
+        );
 
     console.log(
       "Remove friend error:",
